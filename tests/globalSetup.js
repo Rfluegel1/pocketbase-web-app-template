@@ -32,5 +32,7 @@ export default async () => {
 
     })
 
-    await startBackend()
+    if (env === 'development') {
+        await startBackend()
+    }
 };
