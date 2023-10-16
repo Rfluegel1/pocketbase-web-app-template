@@ -13,10 +13,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Install dependencies
-        # runs "npm i" as well
-        uses: cypress-io/github-action@v5
-        with:
-          runTests: false
-      - name: Run e2e Tests
-        run: npm run e2e:staging
+
+#      - name: Install dependencies
+#        # runs "npm i" as well
+#        uses: cypress-io/github-action@v5
+#        with:
+#          runTests: false
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run blackbox tests
+        run: npm run test:staging

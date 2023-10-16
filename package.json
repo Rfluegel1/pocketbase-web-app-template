@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "test:github": "NODE_ENV=development POCKETBASE_EXE=linux_amd64_pocketbase jest --runInBand",
-    "test:staging": "NODE_ENV=staging jest blackbox --detectOpenHandles"
+    "test:staging": "NODE_ENV=staging POCKETBASE_EXE=linux_amd64_pocketbase jest blackbox"
   },
   "keywords": [],
   "author": "",
