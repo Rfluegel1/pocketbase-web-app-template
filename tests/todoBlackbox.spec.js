@@ -2,8 +2,7 @@ import {Todo} from '../src/todo'
 
 let PocketBase = require('pocketbase/cjs')
 
-let baseURL = 'http://127.0.0.1:8090'
-const pocketbase = new PocketBase(baseURL)
+const pocketbase = new PocketBase(process.env.POCKETBASE_BASE_URL)
 
 jest.setTimeout(30000);
 

@@ -7,8 +7,8 @@ This is a web application template making use of pocketbase, node, and react
 ```npm install```
 
 2. ### Run pocketbase
-1. ```./pocketbase serve```
-2. Create your admin account at the admin UI ( http://127.0.0.1:8090/_/ by default)
+   1. ```./pocketbase serve```
+   2. Create your admin account at the admin UI ( http://127.0.0.1:8090/_/ by default)
 
 3. ### Run tests
 ```npm run test```

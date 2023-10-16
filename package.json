@@ -4,12 +4,15 @@
   "description": "This is a web application template making use of pocketbase, node, and react",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest",
+    "test:github": "NODE_ENV=development jest --runInBand",
+    "test:staging": "NODE_ENV=staging jest blackbox --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "pocketbase": "^0.18.3"
   },
   "devDependencies": {
