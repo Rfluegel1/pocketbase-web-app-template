@@ -11,4 +11,4 @@ This is a web application template making use of pocketbase, node, and react
 2. Create your admin account at the admin UI ( http://127.0.0.1:8090/_/ by default)
 
 3. ### Run tests
-```npm test```
+```npm run test```
