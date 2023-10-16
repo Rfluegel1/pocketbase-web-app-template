@@ -16,10 +16,19 @@ export default async () => {
         fs.writeFileSync(path.join(__dirname, 'server.pid'), pid)
         server.stdout.on('data', (data) => {
             const output = data.toString()
+            console.log(output)
             if (output.includes('Server started at')) {
+                console.log('server started')
                 resolve(server)
             }
         })
+        server.on('error', (error) => {
+            console.error('Error starting server:', error);
+        });
+        server.stderr.on('data', (data) => {
+            console.error('Server stderr:', data.toString());
+        });
+
     })
 
     await startBackend()
