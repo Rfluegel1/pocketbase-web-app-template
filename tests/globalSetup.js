@@ -10,7 +10,9 @@ require('dotenv').config({path: `.env.${env}`})
 
 export default async () => {
     const startBackend = () => new Promise((resolve) => {
-        const server = spawn('./pocketbase', ['serve'])
+        const pocketbasePath = path.join(__dirname, '../pocketbase');  // Adjust the path accordingly
+        const server = spawn(pocketbasePath, ['serve']);
+
         let pid = server.pid?.toString() ? server.pid?.toString() : 'pid undefined'
         console.log('\ncreated pocketbase server with pid:', pid)
         fs.writeFileSync(path.join(__dirname, 'server.pid'), pid)

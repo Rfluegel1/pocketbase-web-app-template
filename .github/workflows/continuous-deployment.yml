@@ -33,10 +33,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Set pocketbase executable permissions
-        run: chmod +x ./pocketbase
-
-
       - name: Run tests (development)
         run: npm run test:github
 
