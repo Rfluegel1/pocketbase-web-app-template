@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "test:github": "NODE_ENV=development POCKETBASE_EXE=githubPocketbase jest --runInBand",
+    "test:github": "NODE_ENV=development POCKETBASE_EXE=linux_amd64_pocketbase jest --runInBand",
     "test:staging": "NODE_ENV=staging jest blackbox --detectOpenHandles"
   },
   "keywords": [],
@@ -19,6 +19,7 @@
     "@babel/core": "^7.23.2",
     "@babel/plugin-transform-modules-commonjs": "^7.23.0",
     "@babel/preset-env": "^7.23.2",
+    "@flydotio/dockerfile": "^0.4.10",
     "@types/jest": "^29.5.5",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0"
