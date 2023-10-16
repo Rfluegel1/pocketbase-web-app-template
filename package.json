@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest",
-    "test:github": "NODE_ENV=development jest --runInBand",
+    "test:github": "NODE_ENV=development npx jest --runInBand",
     "test:staging": "NODE_ENV=staging jest blackbox --detectOpenHandles"
   },
   "keywords": [],

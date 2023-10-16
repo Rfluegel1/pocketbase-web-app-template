@@ -52,7 +52,4 @@ describe('Todo resource', () => {
         // then
         expect(getResponseAfterDelete.status).toEqual(404)
     })
-    it ('has a synchronous test too', () => {
-        expect(true).toEqual(true)
-    })
 })
