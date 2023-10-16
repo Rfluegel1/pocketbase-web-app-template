@@ -33,9 +33,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Test run Pocketbase
-        run: ./linuxPocketbase serve
-
       - name: Run tests (development)
         run: npm run test:github
 

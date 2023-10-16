@@ -6,11 +6,12 @@ if (process.env.NODE_ENV === 'test') {
     process.env.NODE_ENV = 'development'
 }
 const env = process.env.NODE_ENV || 'development'
+const POCKETBASE_EXE = process.env.POCKETBASE_EXE || './pocketbase'
 require('dotenv').config({path: `.env.${env}`})
 
 export default async () => {
     const startBackend = () => new Promise((resolve) => {
-        const server = spawn('./pocketbase', ['serve']);
+        const server = spawn(`./${POCKETBASE_EXE}`, ['serve']);
         let pid = server.pid?.toString() ? server.pid?.toString() : 'pid undefined'
         console.log('\ncreated pocketbase server with pid:', pid)
         fs.writeFileSync(path.join(__dirname, 'server.pid'), pid)
