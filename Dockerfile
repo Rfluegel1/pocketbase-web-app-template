@@ -16,6 +16,9 @@ RUN npm install --only=production
 # Copy over the rest of the code
 COPY . .
 
+# Create perisistent volume for data
+VOLUME /pb/pb_data
+
 # Expose the port the app runs on
 EXPOSE 8090
 
