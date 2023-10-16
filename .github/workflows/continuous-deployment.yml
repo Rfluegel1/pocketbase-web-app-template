@@ -8,7 +8,7 @@ on:
 
 jobs:
   continuous-deployment:
-    runs-on: macos-latest
+    runs-on: macos-latest-xlarge
     env:
       APP_NAME: 'web-app-template'
     timeout-minutes: 10
