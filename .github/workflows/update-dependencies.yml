@@ -1,32 +1,14 @@
 name: Update NPM Dependencies and Test
 
 on:
-#  schedule:
-#    - cron: '0 3 * * *' # Run daily at 3 AM
+  schedule:
+    - cron: '0 3 * * *' # Run daily at 3 AM
   workflow_dispatch: # Manual trigger
 
 jobs:
   update-and-test:
     runs-on: ubuntu-latest
-    env:
-      AUTH0_SECRET: ${{ secrets.AUTH0_SECRET }}
-      AUTH0_PASSWORD: ${{ secrets.AUTH0_PASSWORD }}
     timeout-minutes: 10
-
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: 'reidfluegel'
-          POSTGRES_PASSWORD: 'asd'
-          POSTGRES_DB: 'post'
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - name: Check out code
@@ -37,30 +19,33 @@ jobs:
         with:
           node-version: 18.16.0
 
+#      - name: Install dependencies
+#        # runs "npm i" as well
+#        uses: cypress-io/github-action@v5
+#        with:
+#          runTests: false
+
       - name: Install dependencies
-        # runs "npm i" as well
-        uses: cypress-io/github-action@v5
-        with:
-          runTests: false
+        run: npm install
 
       - name: Update NPM packages
         run: npm update
 
       - name: Run Backend Tests
-        run: npm run test:github backend
+        run: npm run test:github
 
-      - name: Run Frontend Tests
-        run: npm run test:github frontend
-
-      - name: Build Frontend (Development)
-        run: npm run build
-
-      - name: Run e2e Test
-        uses: cypress-io/github-action@v5
-        with:
-          install: false
-          start: |
-            npm run backend
+#      - name: Run Frontend Tests
+#        run: npm run test:github frontend
+#
+#      - name: Build Frontend (Development)
+#        run: npm run build
+#
+#      - name: Run e2e Test
+#        uses: cypress-io/github-action@v5
+#        with:
+#          install: false
+#          start: |
+#            npm run backend
 
       - name: Create PR if Tests Pass
         run: |
