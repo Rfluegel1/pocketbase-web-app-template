@@ -7,6 +7,9 @@ WORKDIR /app
 # Set environment to 'staging'
 ENV NODE_ENV=staging
 
+# Install ca-certificates and update the certificate list
+RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
+
 # Copy package.json and package-lock.json for installing dependencies
 COPY package*.json ./
 
