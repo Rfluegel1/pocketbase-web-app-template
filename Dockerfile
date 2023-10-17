@@ -19,7 +19,5 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 8090
 
-ENV PB_DIR=/pb/pb_data
-
 # Specify the command to run when the container starts
 CMD [ "./pb/linux_amd64_pocketbase", "serve", "--http", "0.0.0.0:8090" ]
