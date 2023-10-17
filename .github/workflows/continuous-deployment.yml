@@ -31,13 +31,12 @@ jobs:
 #        with:
 #          runTests: false
 
-      - name: Navigate to backend
-        run: cd backend
-
       - name: Install dependencies
+        working-directory: ./backend
         run: npm install
 
       - name: Run tests (development)
+        working-directory: ./backend
         run: npm run test:github
 
 #      - name: Run Frontend Tests (Development)

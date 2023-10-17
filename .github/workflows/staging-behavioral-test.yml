@@ -20,11 +20,10 @@ jobs:
 #        with:
 #          runTests: false
 
-      - name: Navigate to backend
-        run: cd backend
-
       - name: Install Dependencies
+        working-directory: ./backend
         run: npm install
 
       - name: Run blackbox tests
+        working-directory: ./backend
         run: npm run test:staging
