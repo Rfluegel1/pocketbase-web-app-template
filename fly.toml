@@ -10,7 +10,7 @@ primary_region = "ord"
 
 [[mounts]]
   source = "web_app_template_data1"
-  destination = "/app/src/backend/pb/pb_data"
+  destination = "/app/backend/pb/pb_data"
 
 [http_service]
   internal_port = 8090

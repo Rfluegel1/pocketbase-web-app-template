@@ -1,4 +1,4 @@
 node_modules
 .idea
-src/backend/pb/pb_data
-src/backend/pb/macos_arm64_pocketbase
+backend/pb/pb_data
+backend/pb/macos_arm64_pocketbase

@@ -4,6 +4,6 @@ module.exports = {
     },
     "testEnvironment": "node",
     "testMatch": ["**/tests/**/*.spec.js"],
-    globalSetup: '<rootDir>/tests/backend/globalSetup.js',
-    globalTeardown: '<rootDir>/tests/backend/globalTeardown.js',
+    globalSetup: '<rootDir>/tests/globalSetup.js',
+    globalTeardown: '<rootDir>/tests/globalTeardown.js'
 }

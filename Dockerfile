@@ -23,4 +23,4 @@ COPY . .
 EXPOSE 8090
 
 # Specify the command to run when the container starts
-CMD [ "./src/backend/pb/linux_amd64_pocketbase", "serve", "--http", "0.0.0.0:8090" ]
+CMD [ "./backend/pb/linux_amd64_pocketbase", "serve", "--http", "0.0.0.0:8090" ]
