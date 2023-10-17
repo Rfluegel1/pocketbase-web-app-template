@@ -2,3 +2,4 @@ node_modules
 .idea
 backend/pb/pb_data
 backend/pb/macos_arm64_pocketbase
+backend/tests
