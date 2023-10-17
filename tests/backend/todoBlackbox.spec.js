@@ -1,5 +1,5 @@
 let PocketBase = require('pocketbase/cjs')
-const {Todo} = require('../src/Todo');
+const {Todo} = require('../../src/backend/Todo');
 
 const pocketbase = new PocketBase(process.env.POCKETBASE_BASE_URL)
 

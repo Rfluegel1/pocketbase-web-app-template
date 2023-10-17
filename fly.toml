@@ -10,12 +10,11 @@ primary_region = "ord"
 
 [[mounts]]
   source = "web_app_template_data1"
-  destination = "/app/pb/pb_data"
+  destination = "/app/src/backend/pb/pb_data"
 
 [http_service]
   internal_port = 8090
   force_https = true
   auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
+  auto_start_machines = trueπ
   processes = ["app"]
