@@ -66,6 +66,7 @@ jobs:
           flyctl deploy -a $APP_NAME
 #
       - name: Run blackbox tests (staging)
+        working-directory: ./backend
         run: npm run test:staging
 #
 #      - name: Run e2e Tests (Staging)
