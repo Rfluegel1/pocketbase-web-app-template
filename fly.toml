@@ -16,5 +16,5 @@ primary_region = "ord"
   internal_port = 8090
   force_https = true
   auto_stop_machines = true
-  auto_start_machines = trueπ
+  auto_start_machines = true
   processes = ["app"]
