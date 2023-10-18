@@ -1,5 +1,7 @@
 const isStaging = process.env.NODE_ENV === 'staging';
 const POCKETBASE_EXE = process.env.POCKETBASE_EXE || 'macos_arm64_pocketbase'
+import dotenv from 'dotenv';
+dotenv.config({path:`.env.${process.env.NODE_ENV}`})
 
 /** @type {import('@playwright/test').PlaywrightTestConfig} */
 const config = {

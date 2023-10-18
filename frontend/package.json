@@ -6,13 +6,13 @@
 		"dev": "vite dev",
 		"build": "vite build && mkdir -p ../backend/pb/pb_public && cp -r build/* ../backend/pb/pb_public/",
 		"preview": "vite preview",
-		"test": "npm run test:integration && npm run test:unit",
+		"test": "NODE_ENV=development npm run test:integration && npm run test:unit",
 		"test:github": " NODE_ENV=github npm run test:integration:github && npm run test:unit",
 		"lint": "prettier --plugin-search-dir --check . && eslint .",
 		"format": "prettier --plugin-search-dir --write .",
-		"test:integration": "playwright test",
-		"test:integration:github": "POCKETBASE_EXE=linux_amd64_pocketbase playwright test",
-		"test:integration:staging": "POCKETBASE_EXE=linux_amd64_pocketbase NODE_ENV=staging playwright test",
+		"test:integration": "NODE_ENV=development playwright test",
+		"test:integration:github": "NODE_ENV=development POCKETBASE_EXE=linux_amd64_pocketbase playwright test",
+		"test:integration:staging": "NODE_ENV=staging POCKETBASE_EXE=linux_amd64_pocketbase playwright test",
 		"test:unit": "vitest --run"
 	},
 	"devDependencies": {

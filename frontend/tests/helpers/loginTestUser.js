@@ -1,7 +1,7 @@
-import {createDevelopmentTestUser} from "./createDevelopmentTestUser.js";
+import {createTestUser} from "./createTestUser.js";
 
 export async function loginTestUser(page) {
-    await createDevelopmentTestUser()
+    await createTestUser()
 
     await page.goto('/login');
 
