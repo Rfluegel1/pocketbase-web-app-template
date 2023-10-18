@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && cp -r build/* ../backend/pb/pb_public/",
+		"build": "vite build && mkdir -p ../backend/pb/pb_public && cp -r build/* ../backend/pb/pb_public/",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",
 		"lint": "prettier --plugin-search-dir --check . && eslint .",
