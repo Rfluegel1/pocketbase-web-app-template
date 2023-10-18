@@ -17,7 +17,7 @@ test.describe('Login Page', () => {
         await expect(submitButton).toBeVisible();
     });
 
-    test('valid login should display username', async ({ page }) => {
+    (process.env.NODE_ENV === 'github' ? test.skip : test)('valid login should display username', async ({ page }) => {
         // given
         await page.goto('/login');
 

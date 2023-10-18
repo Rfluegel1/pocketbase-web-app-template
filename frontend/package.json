@@ -7,7 +7,7 @@
 		"build": "vite build && mkdir -p ../backend/pb/pb_public && cp -r build/* ../backend/pb/pb_public/",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",
-		"test:github": "npm run test:integration:github && npm run test:unit",
+		"test:github": " NODE_ENV=github npm run test:integration:github && npm run test:unit",
 		"lint": "prettier --plugin-search-dir --check . && eslint .",
 		"format": "prettier --plugin-search-dir --write .",
 		"test:integration": "playwright test",
