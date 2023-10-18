@@ -82,3 +82,11 @@ jobs:
       - name: Run e2e tests (staging)
         working-directory: ./frontend
         run: npm run test:integration:staging
+
+      - name: Upload Test Results
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: |
+            frontend/test-results
