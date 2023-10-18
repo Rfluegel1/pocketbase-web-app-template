@@ -19,17 +19,20 @@
 </style>
 
 <main>
-    {#if loggedInUser}  <!-- Display the logged-in user's email if logged in -->
+    {#if loggedInUser}
         <h1>Welcome, {loggedInUser.email}</h1>
     {/if}
 
-    <form on:submit|preventDefault={handleSubmit}>
-        <label for="email">Email:</label>
-        <input type="email" id="email" bind:value={email} required>
+    {#if !loggedInUser}
+        <h1>Login</h1>
+        <form on:submit|preventDefault={handleSubmit}>
+            <label for="email">Email:</label>
+            <input type="email" id="email" bind:value={email} required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" bind:value={password} required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" bind:value={password} required>
 
-        <button type="submit">Login</button>
-    </form>
+            <button type="submit">Login</button>
+        </form>
+    {/if}
 </main>

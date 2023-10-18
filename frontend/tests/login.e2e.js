@@ -18,7 +18,7 @@ test.describe('Login Page', () => {
         await expect(submitButton).toBeVisible();
     });
 
-    test('valid login should display username', async ({page}) => {
+    test('valid login should display username and remove form', async ({page}) => {
         // given
         if (process.env.NODE_ENV === 'github') {
             const pb = new PocketBase('http://127.0.0.1:8090')
@@ -41,5 +41,13 @@ test.describe('Login Page', () => {
 
         // then
         await expect(page.locator('h1')).toHaveText('Welcome, test.user@web-app-template.dev');
+        const emailField = await page.locator('input[type="email"]');
+        await expect(emailField).not.toBeVisible();
+
+        const passwordField = await page.locator('input[type="password"]');
+        await expect(passwordField).not.toBeVisible();
+
+        const submitButton = await page.locator('button[type="submit"]');
+        await expect(submitButton).not.toBeVisible();
     })
 });
