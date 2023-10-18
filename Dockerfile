@@ -1,26 +1,37 @@
-# Use official Node image as a base image
-FROM node:18.16.0-slim AS base
+# Build frontend
+FROM node:18.16.0-slim AS frontend-build
 
-# Set the working directory in the image
-WORKDIR /app
+WORKDIR /app/frontend
 
-# Set environment to 'staging'
-ENV NODE_ENV=staging
+# Copy frontend package.json and package-lock.json for installing dependencies
+COPY frontend/package*.json ./
+
+# Install frontend dependencies
+RUN npm install
+
+# Copy the rest of the frontend code
+COPY frontend .
+
+# Build the frontend
+RUN npm run build
+
+# Build backend
+FROM node:18.16.0-slim AS backend-build
+
+WORKDIR /app/backend
 
 # Install ca-certificates and update the certificate list
 RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
 
-# Change to backend directory
-WORKDIR /app/backend
-
-# Copy package.json and package-lock.json for installing dependencies
+# Copy backend package.json and package-lock.json for installing dependencies
 COPY backend/package*.json ./
 
-# Install node modules
+# Install backend dependencies
 RUN npm install --only=production
 
-# Copy over the rest of the code
-COPY backend ./
+# Copy the rest of the backend code and the built frontend
+COPY backend .
+COPY --from=frontend-build /app/frontend/build ./pb/pb_public
 
 # Expose the port the app runs on
 EXPOSE 8090
