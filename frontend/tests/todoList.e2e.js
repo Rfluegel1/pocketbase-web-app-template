@@ -25,7 +25,7 @@ test.describe('Todo list page', () => {
             await page.goto('/');
 
             // then
-            await expect(page.locator('li').first()).toHaveText('squash bugs');
+            await expect(page.locator('[data-testid="squash bugs"]').first()).toHaveText('squash bugs');
 
         } finally {
             // cleanup

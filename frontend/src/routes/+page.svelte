@@ -14,7 +14,7 @@
 <main>
     <ol>
         {#each todos as todo (todo.id)}
-            <li>{todo.task}</li>
+            <li data-testid={todo.task}>{todo.task}</li>
         {/each}
     </ol>
 </main>
