@@ -5,6 +5,7 @@ test.describe('Logout page', () => {
     test('should log user out and redirect to login', async ({page}) => {
         // given user is logged in
         if (process.env.NODE_ENV === 'github') {
+            try {
             const pb = new PocketBase('http://127.0.0.1:8090')
             let email = 'test.user@web-app-template.dev';
             let password = process.env.TEST_USER_PASSWORD;
@@ -13,6 +14,11 @@ test.describe('Logout page', () => {
                 password,
                 passwordConfirm: password,
             });
+            } catch (e) {
+                if (e.response.data.email.message !== 'The email is invalid or already in use.') {
+                    throw e
+                }
+            }
         }
 
         await page.goto('/login');
