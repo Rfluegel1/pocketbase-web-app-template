@@ -8,7 +8,7 @@ const config = {
         port: 8090,
     },
     use: {
-        baseURL: isStaging ? 'https://web-app-template.fly.dev/' : 'http://localhost:8090',
+        baseURL: process.env.BASE_URL,
     },
     testDir: 'tests',
     testMatch: /(.+\.)?(e2e)\.[jt]s/

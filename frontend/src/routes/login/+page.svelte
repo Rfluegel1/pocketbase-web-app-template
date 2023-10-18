@@ -5,7 +5,7 @@
     let password = '';
     let loggedInUser = null;
 
-    const pb = new PocketBase('http://localhost:8090');
+    const pb = new PocketBase(process.env.BASE_URL);
 
     async function handleSubmit() {
         const authData = await pb.collection('users').authWithPassword(email, password);
