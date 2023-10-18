@@ -50,7 +50,7 @@ jobs:
 
       - name: Run frontend tests (Development)
         working-directory: ./frontend
-        run: npm run test
+        run: npm run test:github
 
 #      - name: Build Frontend (Development)
 #        run: npm run build
