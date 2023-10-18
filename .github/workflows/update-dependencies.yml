@@ -8,6 +8,8 @@ on:
 jobs:
   update-and-test:
     runs-on: ubuntu-latest
+    env:
+      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
     timeout-minutes: 10
 
     steps:
@@ -25,17 +27,33 @@ jobs:
 #        with:
 #          runTests: false
 
-      - name: Install dependencies
+      - name: Install dependencies (backend)
         working-directory: ./backend
         run: npm install
 
-      - name: Update NPM packages
+      - name: Update NPM packages (backend)
         working-directory: ./backend
         run: npm update
 
-      - name: Run Backend Tests
+      - name: Run tests (backend)
         working-directory: ./backend
         run: npm run test:github
+
+      - name: Install dependencies (frontend)
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Update NPM packages (frontend)
+        working-directory: ./frontend
+        run: npm update
+
+      - name: Install playwright
+        working-directory: ./frontend
+        run: npx playwright install
+
+      - name: Run tests (frontend)
+        working-directory: ./frontend
+        run: npm run test
 
 #      - name: Run Frontend Tests
 #        run: npm run test:github frontend
