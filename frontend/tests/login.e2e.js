@@ -1,8 +1,9 @@
 // login.spec.js
-import { test, expect } from '@playwright/test';
+import {test, expect} from '@playwright/test';
+import PocketBase from 'pocketbase'
 
 test.describe('Login Page', () => {
-    test('should have the necessary fields and button', async ({ page }) => {
+    test('should have the necessary fields and button', async ({page}) => {
         // given
         await page.goto('/login');
 
@@ -17,8 +18,19 @@ test.describe('Login Page', () => {
         await expect(submitButton).toBeVisible();
     });
 
-    (process.env.NODE_ENV === 'github' ? test.skip : test)('valid login should display username', async ({ page }) => {
+    test('valid login should display username', async ({page}) => {
         // given
+        if (process.env.NODE_ENV === 'github') {
+            const pb = new PocketBase('http://127.0.0.1:8090')
+            let email = 'test.user@web-app-template.dev';
+            let password = process.env.TEST_USER_PASSWORD;
+            await pb.collection("users").create({
+                email,
+                password,
+                passwordConfirm: password,
+            });
+        }
+
         await page.goto('/login');
 
         await page.fill('input[type="email"]', 'test.user@web-app-template.dev');
