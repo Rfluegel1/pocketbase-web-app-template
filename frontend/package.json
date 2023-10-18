@@ -11,6 +11,7 @@
 		"lint": "prettier --plugin-search-dir --check . && eslint .",
 		"format": "prettier --plugin-search-dir --write .",
 		"test:integration": "NODE_ENV=development playwright test",
+		"test:integration:debug": "NODE_ENV=development playwright test --debug",
 		"test:integration:github": "NODE_ENV=development POCKETBASE_EXE=linux_amd64_pocketbase playwright test",
 		"test:integration:staging": "NODE_ENV=staging POCKETBASE_EXE=linux_amd64_pocketbase playwright test",
 		"test:unit": "vitest --run"

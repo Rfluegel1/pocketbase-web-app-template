@@ -11,6 +11,8 @@ const config = {
     },
     use: {
         baseURL: isStaging ? 'https://web-app-template.fly.dev/' : 'http://localhost:8090',
+        screenshot: 'only-on-failure',
+        video: 'retain-on-failure'
     },
     testDir: 'tests',
     testMatch: /(.+\.)?(e2e)\.[jt]s/

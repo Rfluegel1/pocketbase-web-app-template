@@ -9,4 +9,5 @@ export async function loginTestUser(page) {
     await page.fill('input[type="password"]', process.env.TEST_USER_PASSWORD);
 
     await page.click('button[type="submit"]');
+    await page.waitForTimeout(1000)
 }
