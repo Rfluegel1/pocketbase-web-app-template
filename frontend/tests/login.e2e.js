@@ -1,6 +1,5 @@
 // login.spec.js
 import {test, expect} from '@playwright/test';
-import {createDevelopmentTestUser} from "./helpers/createDevelopmentTestUser.js";
 import {loginTestUser} from "./helpers/loginTestUser.js";
 
 test.describe('Login Page', () => {
@@ -20,11 +19,6 @@ test.describe('Login Page', () => {
     });
 
     test('valid login should display username and remove form', async ({page}) => {
-        // given
-        if (process.env.NODE_ENV === 'github') {
-            await createDevelopmentTestUser()
-        }
-
         // when
         await loginTestUser(page)
 

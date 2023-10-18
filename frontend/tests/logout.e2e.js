@@ -1,13 +1,9 @@
 import {expect, test} from '@playwright/test';
-import {createDevelopmentTestUser} from "./helpers/createDevelopmentTestUser.js";
 import {loginTestUser} from "./helpers/loginTestUser.js";
 
 test.describe('Logout page', () => {
     test('should log user out and redirect to login', async ({page}) => {
-        // given user is logged in
-        if (process.env.NODE_ENV === 'github') {
-            await createDevelopmentTestUser()
-        }
+        // given
         await loginTestUser(page)
 
         // when

@@ -1,4 +1,8 @@
+import {createDevelopmentTestUser} from "./createDevelopmentTestUser.js";
+
 export async function loginTestUser(page) {
+    await createDevelopmentTestUser()
+
     await page.goto('/login');
 
     await page.fill('input[type="email"]', 'test.user@web-app-template.dev');
