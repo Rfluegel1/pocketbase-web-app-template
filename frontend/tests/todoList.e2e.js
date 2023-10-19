@@ -39,7 +39,11 @@ test.describe('Todo list page', () => {
             console.error(e)
         } finally {
             // cleanup
-            const record = await pb.collection('todos').getFirstListItem('task="squash bugs"')
+            let record = await pb.collection('todos').getFirstListItem('task="squash bugs"')
+            await pb.collection('todos').delete(record.id)
+            record = await pb.collection('todos').getFirstListItem('task="sanitize"')
+            await pb.collection('todos').delete(record.id)
+            record = await pb.collection('todos').getFirstListItem('task="watch grass grow"')
             await pb.collection('todos').delete(record.id)
             pb.authStore.clear()
         }
