@@ -4,19 +4,25 @@
 
     let email = '';
     let password = '';
+    let error = '';
 
     const pb = new PocketBase(process.env.BASE_URL);
 
     async function handleSubmit() {
-        await pb.collection('users').authWithPassword(email, password);
-        if (pb.authStore.isValid) {
+        try {
+            await pb.collection('users').authWithPassword(email, password);
             await goto('/')
+        } catch (e) {
+            error = 'Invalid email or password'
+            throw e
         }
     }
 </script>
 
 <style>
-    /* Add your styles here */
+    .error {
+        color: red;
+    }
 </style>
 
 <main>
@@ -30,4 +36,7 @@
 
         <button type="submit">Login</button>
     </form>
+    {#if error}
+        <div class="error" role="alert">{error}</div>
+    {/if}
 </main>
