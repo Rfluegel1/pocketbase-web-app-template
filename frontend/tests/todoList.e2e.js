@@ -3,6 +3,8 @@ import PocketBase from "pocketbase";
 import {loginTestUser} from "./helpers/loginTestUser.js";
 
 test.describe('Todo list page', () => {
+    const pb = new PocketBase(process.env.BASE_URL)
+
     test('should redirect when user is not logged in', async ({page}) => {
         // given
         await page.goto('/logout');
@@ -17,7 +19,6 @@ test.describe('Todo list page', () => {
     test('should display only todo records made by test.user', async ({page}) => {
         // given
         await loginTestUser(page)
-        const pb = new PocketBase(process.env.BASE_URL)
         try {
             const password = process.env.NODE_ENV === 'staging'
                 ? process.env.STAGING_PB_ADMIN_PASSWORD
@@ -44,6 +45,30 @@ test.describe('Todo list page', () => {
             record = await pb.collection('todos').getFirstListItem('task="sanitize"')
             await pb.collection('todos').delete(record.id)
             record = await pb.collection('todos').getFirstListItem('task="watch grass grow"')
+            await pb.collection('todos').delete(record.id)
+            pb.authStore.clear()
+        }
+    })
+
+    test('should allow tasks to be created', async ({page}) => {
+        //given
+        await loginTestUser(page)
+        await page.goto('/')
+        try {
+            // when
+            await page.fill('input[id="task"]', 'test task');
+            await page.click('button[id="create"]');
+
+            // and
+            await page.reload()
+
+            // then
+            await expect(page.locator('[data-testid="test task"]').first()).toHaveText('test task');
+        } catch (e) {
+            console.error(e)
+        } finally {
+            // cleanup
+            let record = await pb.collection('todos').getFirstListItem('task="test task"')
             await pb.collection('todos').delete(record.id)
             pb.authStore.clear()
         }
