@@ -33,12 +33,14 @@
         {/each}
     </ol>
     <input id="task" bind:value={task}>
-    {#if error}
-        <div role="alert">{error}</div>
-    {/if}
     <button id="create" on:click={createTask}>Create Task</button>
+    {#if error}
+        <div class="error" role="alert">{error}</div>
+    {/if}
 </main>
 
 <style>
-    /* Your styles here */
+    .error {
+        color: red;
+    }
 </style>
