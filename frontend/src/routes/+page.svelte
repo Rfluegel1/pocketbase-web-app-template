@@ -20,7 +20,7 @@
             return;
         }
         error = '';
-        await pb.collection('todos').create({ task: task, createdBy: loggedInUserRecord.id });
+        await pb.collection('todos').create({task: task, createdBy: loggedInUserRecord.id});
         const response = await pb.collection('todos').getList(1, 50, {filter: `createdBy="${loggedInUserRecord.id}"`});
         todos = response.items;
         task = '';
@@ -34,21 +34,34 @@
 </script>
 
 <main>
-    <ol>
+    <div class="todo-list">
         {#each todos as todo (todo.id)}
-            <li data-testid={todo.task}>{todo.task}</li>
-            <button data-testid="delete {todo.task}" on:click={() => deleteTask(todo.id)}>X</button>
+            <div class="todo-item">
+                <ol>
+                    <li data-testid={todo.task}>{todo.task}</li>
+                </ol>
+                <button data-testid="delete {todo.task}" on:click={() => deleteTask(todo.id)}>X</button>
+            </div>
         {/each}
-    </ol>
-    <input id="task" bind:value={task}>
-    <button id="create" on:click={createTask}>Create Task</button>
-    {#if error}
-        <div class="error" role="alert">{error}</div>
-    {/if}
+    </div>
+    <form>
+        <input id="task" bind:value={task}>
+        <button id="create" on:click={createTask}>Create Task</button>
+        {#if error}
+            <div class="error" role="alert">{error}</div>
+        {/if}
+    </form>
 </main>
 
 <style>
     .error {
         color: red;
+    }
+    .todo-item {
+        display: flex;
+        align-items: center;
+    }
+    .todo-item button {
+        margin-left: 10px; /* Adjust the value to your liking */
     }
 </style>
