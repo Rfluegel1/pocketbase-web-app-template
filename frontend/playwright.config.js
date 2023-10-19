@@ -10,7 +10,7 @@ const config = {
         port: 8090,
     },
     use: {
-        baseURL: isStaging ? 'https://web-app-template.fly.dev/' : 'http://localhost:8090',
+        baseURL: isStaging ? 'https://web-app-template.fly.dev/' : 'http://127.0.0.1:8090',
         screenshot: 'only-on-failure',
         video: 'retain-on-failure'
     },

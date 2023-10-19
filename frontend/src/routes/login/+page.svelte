@@ -1,16 +1,17 @@
 <script>
     import PocketBase from 'pocketbase'
+    import {goto} from "$app/navigation";
 
     let email = '';
     let password = '';
-    let loggedInUser = null;
 
     const pb = new PocketBase(process.env.BASE_URL);
 
     async function handleSubmit() {
-        const authData = await pb.collection('users').authWithPassword(email, password);
-        console.log(authData)
-        loggedInUser = authData.record
+        await pb.collection('users').authWithPassword(email, password);
+        if (pb.authStore.isValid) {
+            await goto('/')
+        }
     }
 </script>
 
@@ -19,20 +20,14 @@
 </style>
 
 <main>
-    {#if loggedInUser}
-        <h1>Welcome, {loggedInUser.email}</h1>
-    {/if}
+    <h1>Login</h1>
+    <form on:submit|preventDefault={handleSubmit}>
+        <label for="email">Email:</label>
+        <input type="email" id="email" bind:value={email} required>
 
-    {#if !loggedInUser}
-        <h1>Login</h1>
-        <form on:submit|preventDefault={handleSubmit}>
-            <label for="email">Email:</label>
-            <input type="email" id="email" bind:value={email} required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" bind:value={password} required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" bind:value={password} required>
-
-            <button type="submit">Login</button>
-        </form>
-    {/if}
+        <button type="submit">Login</button>
+    </form>
 </main>

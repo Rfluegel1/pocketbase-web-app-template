@@ -18,19 +18,11 @@ test.describe('Login Page', () => {
         await expect(submitButton).toBeVisible();
     });
 
-    test('valid login should display username and remove form', async ({page}) => {
+    test('valid login should redirect to todoList', async ({page}) => {
         // when
         await loginTestUser(page)
 
         // then
-        await expect(page.locator('h1')).toHaveText('Welcome, test.user@web-app-template.dev');
-        const emailField = await page.locator('input[type="email"]');
-        await expect(emailField).not.toBeVisible();
-
-        const passwordField = await page.locator('input[type="password"]');
-        await expect(passwordField).not.toBeVisible();
-
-        const submitButton = await page.locator('button[type="submit"]');
-        await expect(submitButton).not.toBeVisible();
+        await expect(page.url()).toBe(`${process.env.BASE_URL}/`);
     })
 });
