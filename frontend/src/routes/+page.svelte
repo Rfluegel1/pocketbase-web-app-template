@@ -35,14 +35,14 @@
 
 <main>
     <div class="todo-list">
-        {#each todos as todo (todo.id)}
-            <div class="todo-item">
-                <ol>
+        <ol>
+            {#each todos as todo (todo.id)}
+                <div class="todo-item">
                     <li data-testid={todo.task}>{todo.task}</li>
-                </ol>
-                <button data-testid="delete {todo.task}" on:click={() => deleteTask(todo.id)}>X</button>
-            </div>
-        {/each}
+                    <button data-testid="delete {todo.task}" on:click={() => deleteTask(todo.id)}>X</button>
+                </div>
+            {/each}
+        </ol>
     </div>
     <form>
         <input id="task" bind:value={task}>
@@ -57,10 +57,12 @@
     .error {
         color: red;
     }
+
     .todo-item {
         display: flex;
         align-items: center;
     }
+
     .todo-item button {
         margin-left: 10px; /* Adjust the value to your liking */
     }
