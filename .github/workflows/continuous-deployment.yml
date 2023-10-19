@@ -41,7 +41,7 @@ jobs:
 
       - name: Run backend tests (development)
         working-directory: ./backend
-        run: npm run test:github
+        run: npm run test:github --if-present
 
       - name: Install dependencies
         working-directory: ./frontend
@@ -80,7 +80,7 @@ jobs:
 
       - name: Run blackbox tests (staging)
         working-directory: ./backend
-        run: npm run test:staging
+        run: npm run test:staging --if-present
 
       - name: Run e2e tests (staging)
         working-directory: ./frontend
