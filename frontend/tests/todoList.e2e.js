@@ -1,6 +1,7 @@
 import {expect, test} from '@playwright/test';
 import PocketBase from "pocketbase";
 import {loginTestUser} from "./helpers/loginTestUser.js";
+import {authenticateAsAdmin} from "./helpers/authenticateAsAdmin.js";
 
 test.describe('Todo list page', () => {
     const pb = new PocketBase(process.env.BASE_URL)
@@ -19,11 +20,9 @@ test.describe('Todo list page', () => {
     test('should display only todo records made by test.user', async ({page}) => {
         // given
         await loginTestUser(page)
+
         try {
-            const password = process.env.NODE_ENV === 'staging'
-                ? process.env.STAGING_PB_ADMIN_PASSWORD
-                : process.env.PB_ADMIN_PASSWORD;
-            await pb.admins.authWithPassword(process.env.PB_ADMIN_EMAIL, password)
+            await authenticateAsAdmin(pb);
             const testUser = await pb.collection('users').getFirstListItem('email="test.user@web-app-template.dev"')
             await pb.collection('todos').create({task: 'squash bugs', createdBy: testUser.id})
             await pb.collection('todos').create({task: 'sanitize', createdBy: testUser.id})
