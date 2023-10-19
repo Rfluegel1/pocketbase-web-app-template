@@ -1,7 +1,7 @@
 import {expect, test} from '@playwright/test';
 import PocketBase from "pocketbase";
 import {loginTestUser} from "./helpers/loginTestUser.js";
-
+π
 test.describe('Todo list page', () => {
     test('should redirect when user is not logged in', async ({page}) => {
         // given
@@ -34,6 +34,8 @@ test.describe('Todo list page', () => {
             await expect(page.locator('text="watch grass grow"')).not.toBeVisible();
         } catch (e) {
             console.error(e)
+            console.log(process.env.PB_ADMIN_EMAIL)
+            console.log(process.env.PB_ADMIN_PASSWORD)
         } finally {
             // cleanup
             const record = await pb.collection('todos').getFirstListItem('task="squash bugs"')
