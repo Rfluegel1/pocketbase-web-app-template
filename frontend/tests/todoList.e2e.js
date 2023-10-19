@@ -59,7 +59,10 @@ test.describe('Todo list page', () => {
             await page.fill('input[id="task"]', 'test task');
             await page.click('button[id="create"]');
 
-            // and
+            // then
+            await expect(page.locator('input[id="task"]')).toHaveValue('');
+
+            // when
             await page.reload()
 
             // then

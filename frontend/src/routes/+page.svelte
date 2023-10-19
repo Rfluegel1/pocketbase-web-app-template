@@ -23,6 +23,7 @@
         await pb.collection('todos').create({ task: task, createdBy: loggedInUserRecord.id });
         const response = await pb.collection('todos').getList(1, 50, {filter: `createdBy="${loggedInUserRecord.id}"`});
         todos = response.items;
+        task = '';
     }
 </script>
 
