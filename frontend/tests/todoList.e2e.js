@@ -74,7 +74,7 @@ test.describe('Todo list page', () => {
         }
     })
 
-    test.only('empty task cannot be created', async ({page}) => {
+    test('empty task cannot be created', async ({page}) => {
         await loginTestUser(page)
         await page.goto('/')
         try {
