@@ -19,7 +19,10 @@ test.describe('Todo list page', () => {
         await loginTestUser(page)
         const pb = new PocketBase(process.env.BASE_URL)
         try {
-            await pb.admins.authWithPassword(process.env.PB_ADMIN_EMAIL, process.env.PB_ADMIN_PASSWORD)
+            const password = process.env.NODE_ENV === 'staging'
+                ? process.env.STAGING_PB_ADMIN_PASSWORD
+                : process.env.PB_ADMIN_PASSWORD;
+            await pb.admins.authWithPassword(process.env.PB_ADMIN_EMAIL, password)
             const testUser = await pb.collection('users').getFirstListItem('email="test.user@web-app-template.dev"')
             await pb.collection('todos').create({task: 'squash bugs', createdBy: testUser.id})
             await pb.collection('todos').create({task: 'sanitize', createdBy: testUser.id})
@@ -34,8 +37,6 @@ test.describe('Todo list page', () => {
             await expect(page.locator('text="watch grass grow"')).not.toBeVisible();
         } catch (e) {
             console.error(e)
-            console.log(process.env.PB_ADMIN_EMAIL)
-            console.log(process.env.PB_ADMIN_PASSWORD)
         } finally {
             // cleanup
             const record = await pb.collection('todos').getFirstListItem('task="squash bugs"')
