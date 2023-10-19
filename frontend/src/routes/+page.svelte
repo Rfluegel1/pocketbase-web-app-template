@@ -5,6 +5,7 @@
     const pb = new PocketBase(process.env.BASE_URL);
     let todos = [];
     let task = ''
+    let error = ''
 
     let loggedInUserRecord = pb.authStore.model;
 
@@ -14,6 +15,11 @@
     });
 
     async function createTask() {
+        if (!task) {
+            error = 'Task is required';
+            return;
+        }
+        error = '';
         await pb.collection('todos').create({ task: task, createdBy: loggedInUserRecord.id });
         const response = await pb.collection('todos').getList(1, 50, {filter: `createdBy="${loggedInUserRecord.id}"`});
         todos = response.items;
@@ -27,6 +33,9 @@
         {/each}
     </ol>
     <input id="task" bind:value={task}>
+    {#if error}
+        <div role="alert">{error}</div>
+    {/if}
     <button id="create" on:click={createTask}>Create Task</button>
 </main>
 

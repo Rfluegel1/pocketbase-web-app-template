@@ -37,7 +37,7 @@ test.describe('Todo list page', () => {
             await expect(page.locator('[data-testid="sanitize"]').first()).toHaveText('sanitize');
             await expect(page.locator('text="watch grass grow"')).not.toBeVisible();
         } catch (e) {
-            console.error(e)
+            throw e
         } finally {
             // cleanup
             let record = await pb.collection('todos').getFirstListItem('task="squash bugs"')
@@ -65,11 +65,28 @@ test.describe('Todo list page', () => {
             // then
             await expect(page.locator('[data-testid="test task"]').first()).toHaveText('test task');
         } catch (e) {
-            console.error(e)
+            throw e
         } finally {
             // cleanup
             let record = await pb.collection('todos').getFirstListItem('task="test task"')
             await pb.collection('todos').delete(record.id)
+            pb.authStore.clear()
+        }
+    })
+
+    test.only('empty task cannot be created', async ({page}) => {
+        await loginTestUser(page)
+        await page.goto('/')
+        try {
+            // when
+            await page.click('button[id="create"]');
+
+            // then
+            await expect(page.locator('div[role="alert"]')).toHaveText('Task is required')
+        } catch (e) {
+            throw e
+        } finally {
+            // cleanup
             pb.authStore.clear()
         }
     })
