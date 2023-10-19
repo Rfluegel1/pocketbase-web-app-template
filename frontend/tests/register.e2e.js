@@ -39,4 +39,36 @@ test.describe('Register Page', () => {
             await pb.collection('users').delete(user.id)
         }
     })
+
+    test('user creation error displays message to client', async ({page}) => {
+        // given
+        let email = `test.user-${Math.random()}@temporary.dev`;
+        await page.goto('/register');
+        await page.fill('input[type="email"]', email)
+        await page.fill('input[id="password"]', 'password12')
+        await page.fill('input[id="passwordConfirm"]', 'password12')
+        try {
+
+        await page.click('button[type="submit"]');
+        await page.waitForTimeout(1000)
+        await page.goto('/register');
+
+        // when
+        await page.fill('input[type="email"]', email)
+        await page.fill('input[id="password"]', 'password12')
+        await page.fill('input[id="passwordConfirm"]', 'password12')
+        await page.click('button[type="submit"]');
+        await page.waitForTimeout(1000)
+
+        // then
+        await expect(page.locator('text="There was an error registering your account"')).toBeVisible()
+        } catch (e) {
+            throw e
+        } finally {
+            pb.authStore.clear();
+            await authenticateAsAdmin(pb)
+            const user = await pb.collection('users').getFirstListItem(`email="${email}"`)
+            await pb.collection('users').delete(user.id)
+        }
+    })
 });
