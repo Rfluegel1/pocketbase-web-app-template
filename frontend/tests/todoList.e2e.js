@@ -50,7 +50,7 @@ test.describe('Todo list page', () => {
         }
     })
 
-    test('should allow tasks to be created', async ({page}) => {
+    test('should allow tasks to be created and deleted', async ({page}) => {
         //given
         await loginTestUser(page)
         await page.goto('/')
@@ -67,17 +67,28 @@ test.describe('Todo list page', () => {
 
             // then
             await expect(page.locator('[data-testid="test task"]').first()).toHaveText('test task');
+
+            // when
+            await page.click('button[data-testid="delete test task"]');
+
+            // then
+            await expect(page.locator('text="test task"')).not.toBeVisible();
+
+            // when
+            await page.reload()
+
+            // then
+            await expect(page.locator('text="test task"')).not.toBeVisible();
         } catch (e) {
             throw e
         } finally {
             // cleanup
-            let record = await pb.collection('todos').getFirstListItem('task="test task"')
-            await pb.collection('todos').delete(record.id)
             pb.authStore.clear()
         }
     })
 
     test('empty task cannot be created', async ({page}) => {
+        // given
         await loginTestUser(page)
         await page.goto('/')
         try {

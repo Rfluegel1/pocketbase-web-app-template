@@ -25,12 +25,19 @@
         todos = response.items;
         task = '';
     }
+
+    async function deleteTask(id) {
+        await pb.collection('todos').delete(id);
+        const response = await pb.collection('todos').getList(1, 50, {filter: `createdBy="${loggedInUserRecord.id}"`});
+        todos = response.items;
+    }
 </script>
 
 <main>
     <ol>
         {#each todos as todo (todo.id)}
             <li data-testid={todo.task}>{todo.task}</li>
+            <button data-testid="delete {todo.task}" on:click={() => deleteTask(todo.id)}>X</button>
         {/each}
     </ol>
     <input id="task" bind:value={task}>
