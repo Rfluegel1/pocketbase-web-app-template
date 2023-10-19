@@ -5,8 +5,10 @@
     const pb = new PocketBase(process.env.BASE_URL);
     let todos = [];
 
+    let loggedInUserRecord = pb.authStore.model;
+
     onMount(async () => {
-        const response = await pb.collection('todos').getList();
+        const response = await pb.collection('todos').getList(1, 50, {filter: `createdBy="${loggedInUserRecord.id}"`});
         todos = response.items;
     });
 </script>
