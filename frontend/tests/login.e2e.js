@@ -1,4 +1,3 @@
-// login.spec.js
 import {test, expect} from '@playwright/test';
 import {loginTestUser} from "./helpers/loginTestUser.js";
 
