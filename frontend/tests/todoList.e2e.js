@@ -1,7 +1,7 @@
 import {expect, test} from '@playwright/test';
 import PocketBase from "pocketbase";
 import {loginTestUser} from "./helpers/loginTestUser.js";
-π
+
 test.describe('Todo list page', () => {
     test('should redirect when user is not logged in', async ({page}) => {
         // given
