@@ -15,7 +15,8 @@ const config = {
         video: 'retain-on-failure'
     },
     testDir: 'tests',
-    testMatch: /(.+\.)?(e2e)\.[jt]s/
+    testMatch: /(.+\.)?(e2e)\.[jt]s/,
+    globalSetup: './tests/helpers/globalSetup.js',
 };
 
 export default config;
