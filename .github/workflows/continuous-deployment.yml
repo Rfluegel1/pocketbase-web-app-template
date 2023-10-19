@@ -13,6 +13,8 @@ jobs:
       APP_NAME: 'web-app-template'
       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      PB_ADMIN_PASSWORD: ${{ secrets.PB_ADMIN_PASSWORD }}
+      PB_ADMIN_EMAIL: ${{ secrets.PB_ADMIN_EMAIL }}
     timeout-minutes: 10
 
     steps:
@@ -26,11 +28,11 @@ jobs:
         with:
           node-version: 18.16.0
 
-#      - name: Install dependencies
-#        # runs "npm i" as well
-#        uses: cypress-io/github-action@v5
-#        with:
-#          runTests: false
+      #      - name: Install dependencies
+      #        # runs "npm i" as well
+      #        uses: cypress-io/github-action@v5
+      #        with:
+      #          runTests: false
 
       - name: Install dependencies
         working-directory: ./backend
@@ -52,22 +54,22 @@ jobs:
         working-directory: ./frontend
         run: npm run test:github
 
-#      - name: Build Frontend (Development)
-#        run: npm run build
+      #      - name: Build Frontend (Development)
+      #        run: npm run build
 
-#      - name: Run e2e Tests (Development)
-#        uses: cypress-io/github-action@v5
-#        with:
-#          install: false
-#          start: |
-#            npm run backend
+      #      - name: Run e2e Tests (Development)
+      #        uses: cypress-io/github-action@v5
+      #        with:
+      #          install: false
+      #          start: |
+      #            npm run backend
 
       - name: Install flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
-#
-#      - name: Build Frontend (Staging)
-#        run: npm run build:staging
-#
+      #
+      #      - name: Build Frontend (Staging)
+      #        run: npm run build:staging
+      #
       - name: Deploy to staging with fly
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
