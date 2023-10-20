@@ -79,7 +79,7 @@ jobs:
           git config --local user.name "GitHub Action"
           branch_name="automated/update-dependencies-$(date +%s)"
           git checkout -b $branch_name
-          git add package-lock.json package.json
+          git add backend/package-lock.json backend/package.json frontend/package-lock.json frontend/package.json
           # Check if there are any changes to commit in package.json
           if git diff --exit-code --cached --name-only | grep -q 'package-lock.json'; then
             echo "Changes found in package.json, creating PR."
