@@ -1,12 +1,19 @@
 <script>
     import PocketBase from 'pocketbase'
     import {goto} from "$app/navigation";
+    import {onMount} from "svelte";
 
     let email = '';
     let password = '';
     let error = '';
 
     const pb = new PocketBase(process.env.BASE_URL);
+
+    onMount(() => {
+        if (pb.authStore.isValid) {
+            goto('/')
+        }
+    })
 
     async function handleSubmit() {
         try {

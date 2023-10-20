@@ -17,4 +17,16 @@ test.describe('Login Page', () => {
         // then
         await expect(page.locator('text="Invalid email or password"')).toBeVisible();
     })
+
+    test('logged in user should be redirected to todoList when visiting login page', async ({page}) => {
+        // given
+        await loginTestUser(page)
+
+        // when
+        await page.goto('/login')
+        await page.waitForTimeout(1000)
+
+        // then
+        await expect(page.url()).toBe(`${process.env.BASE_URL}/`);
+    })
 });
