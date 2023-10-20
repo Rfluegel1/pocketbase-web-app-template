@@ -8,6 +8,13 @@ on:
 jobs:
   staging-behavioral-test:
     runs-on: ubuntu-latest
+    env:
+      APP_NAME: 'web-app-template'
+      FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      PB_ADMIN_PASSWORD: ${{ secrets.PB_ADMIN_PASSWORD }}
+      PB_ADMIN_EMAIL: ${{ secrets.PB_ADMIN_EMAIL }}
+      STAGING_PB_ADMIN_PASSWORD: ${{ secrets.STAGING_PB_ADMIN_PASSWORD }}
     timeout-minutes: 10
 
     steps:
