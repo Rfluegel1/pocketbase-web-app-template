@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      PB_ADMIN_PASSWORD: ${{ secrets.PB_ADMIN_PASSWORD }}
+      PB_ADMIN_EMAIL: ${{ secrets.PB_ADMIN_EMAIL }}
     timeout-minutes: 10
 
     steps:
@@ -37,7 +39,7 @@ jobs:
 
       - name: Run tests (backend)
         working-directory: ./backend
-        run: npm run test:github
+        run: npm run test:github --if-present
 
       - name: Install dependencies (frontend)
         working-directory: ./frontend
