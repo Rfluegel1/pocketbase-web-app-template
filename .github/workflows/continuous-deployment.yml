@@ -84,7 +84,7 @@ jobs:
 
       - name: Run e2e tests (staging)
         working-directory: ./frontend
-        run: npm run test:integration:staging
+        run: npm run test:staging
 
       - name: Upload Test Results
         if: failure()
