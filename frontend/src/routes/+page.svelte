@@ -70,6 +70,6 @@
 	}
 
 	.todo-item button {
-		margin-left: 10px; /* Adjust the value to your liking */
+		margin-left: 10px;
 	}
 </style>
