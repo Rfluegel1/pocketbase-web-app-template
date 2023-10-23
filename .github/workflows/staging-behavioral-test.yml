@@ -2,7 +2,7 @@ name: Staging Behavioral Test
 
 on:
     schedule:
-      - cron: '0 1 * * *' # Run daily at 3 AM
+      - cron: '0 1 * * *'
     workflow_dispatch: # Manual trigger
 
 jobs:
@@ -20,12 +20,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-#      - name: Install dependencies
-#        # runs "npm i" as well
-#        uses: cypress-io/github-action@v5
-#        with:
-#          runTests: false
 
       - name: Install Dependencies
         working-directory: ./backend

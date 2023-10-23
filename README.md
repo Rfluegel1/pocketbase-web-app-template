@@ -1,6 +1,6 @@
 
 # web-app-template
-This is a web application template making use of pocketbase, node, and react
+This is a web application template making use of pocketbase, node, and svelte-kit
 
 ## Backend Setup
 
