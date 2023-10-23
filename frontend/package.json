@@ -9,6 +9,7 @@
 		"lint": "prettier --plugin-search-dir --check . && eslint .",
 		"format": "prettier --plugin-search-dir --write .",
 		"test": "NODE_ENV=development playwright test",
+		"test:debug": "NODE_ENV=development playwright test --debug",
 		"test:github": "NODE_ENV=development CREATE_FIRST_ADMIN=true POCKETBASE_EXE=linux_amd64_pocketbase playwright test",
 		"test:staging": "NODE_ENV=staging playwright test"
 	},

@@ -23,7 +23,16 @@ test.describe('Register Page', () => {
 
 			// then
 			await expect(request.url()).toMatch(/\/request-verification$/);
-			await expect(page.locator('text="Please verify your email address"')).toBeVisible();
+			await expect(
+				page.locator('text="Please verify your email address, and then login "')
+			).toBeVisible();
+
+			// when
+			await page.click('a[href="/login"]');
+			await page.waitForTimeout(1000);
+
+			// then
+			expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
 
 			// when
 			await loginTestUser(page, email, 'password12');

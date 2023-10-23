@@ -26,7 +26,7 @@
 <main>
 	<h1>Register</h1>
 	{#if registered}
-		<p>Please verify your email address</p>
+		<p>Please verify your email address, and then login <a href="/login">here</a></p>
 	{:else}
 		<form on:submit|preventDefault={handleSubmit}>
 			<label for="email">Email:</label>
