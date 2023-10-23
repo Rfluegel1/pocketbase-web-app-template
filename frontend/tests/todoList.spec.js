@@ -4,6 +4,7 @@ import { loginTestUser } from './helpers/loginTestUser.js';
 import { authenticateAsAdmin } from './helpers/authenticateAsAdmin.js';
 import { registerTemporaryUser } from './helpers/registerTemporaryUser.js';
 
+test.setTimeout(15000);
 test.describe('Todo list page', () => {
 	const pb = new PocketBase(process.env.BASE_URL);
 
