@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 import PocketBase from 'pocketbase';
 import { loginTestUser } from './helpers/loginTestUser.js';
 import { authenticateAsAdmin } from './helpers/authenticateAsAdmin.js';
+import { registerTemporaryUser } from './helpers/registerTemporaryUser.js';
 
 test.describe('Todo list page', () => {
 	const pb = new PocketBase(process.env.BASE_URL);
@@ -97,6 +98,32 @@ test.describe('Todo list page', () => {
 		} finally {
 			// cleanup
 			pb.authStore.clear();
+		}
+	});
+
+	test('user without email verification cannot create tasks, and is asked to verify', async ({
+		page
+	}) => {
+		// given
+		let email;
+		try {
+			email = await registerTemporaryUser(page);
+			await page.waitForTimeout(1000);
+
+			// when
+			await loginTestUser(page, email, 'password12');
+			await page.waitForTimeout(1000);
+
+			// then
+			await expect(page.url()).toBe(`${process.env.BASE_URL}/`);
+			await expect(page.locator('div[role="alert"]')).toHaveText(
+				'Please verify your email address'
+			);
+		} finally {
+			// cleanup
+			await authenticateAsAdmin(pb);
+			const user = await pb.collection('users').getFirstListItem(`email="${email}"`);
+			await pb.collection('users').delete(user.id);
 		}
 	});
 });

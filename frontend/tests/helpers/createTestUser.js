@@ -10,6 +10,11 @@ export async function createTestUser() {
 			password,
 			passwordConfirm: password
 		});
+		let user = await pb.collection('users').getFirstListItem(`email="${email}"`);
+
+		user.verified = true;
+
+		await pb.collection('users').update(user.id, user);
 	} catch (e) {
 		if (e.response.data.email.message !== 'The email is invalid or already in use.') {
 			throw e;

@@ -5,15 +5,19 @@
 	const pb = new PocketBase(process.env.BASE_URL);
 	let todos = [];
 	let task = '';
+	let isEmailVerified = false;
 	let error = '';
 
 	let loggedInUserRecord = pb.authStore.model;
 
 	onMount(async () => {
-		const response = await pb
-			.collection('todos')
-			.getList(1, 50, { filter: `createdBy="${loggedInUserRecord.id}"` });
-		todos = response.items;
+		if (loggedInUserRecord.verified) {
+			isEmailVerified = true;
+			const response = await pb
+				.collection('todos')
+				.getList(1, 50, { filter: `createdBy="${loggedInUserRecord.id}"` });
+			todos = response.items;
+		}
 	});
 
 	async function createTask() {
@@ -40,23 +44,27 @@
 </script>
 
 <main>
-	<div class="todo-list">
-		<ol>
-			{#each todos as todo (todo.id)}
-				<div class="todo-item">
-					<li data-testid={todo.task}>{todo.task}</li>
-					<button data-testid="delete {todo.task}" on:click={() => deleteTask(todo.id)}>X</button>
-				</div>
-			{/each}
-		</ol>
-	</div>
-	<form>
-		<input id="task" bind:value={task} />
-		<button id="create" on:click={createTask}>Create Task</button>
-		{#if error}
-			<div class="error" role="alert">{error}</div>
-		{/if}
-	</form>
+	{#if isEmailVerified}
+		<div class="todo-list">
+			<ol>
+				{#each todos as todo (todo.id)}
+					<div class="todo-item">
+						<li data-testid={todo.task}>{todo.task}</li>
+						<button data-testid="delete {todo.task}" on:click={() => deleteTask(todo.id)}>X</button>
+					</div>
+				{/each}
+			</ol>
+		</div>
+		<form>
+			<input id="task" bind:value={task} />
+			<button id="create" on:click={createTask}>Create Task</button>
+			{#if error}
+				<div class="error" role="alert">{error}</div>
+			{/if}
+		</form>
+	{:else}
+		<div class="error" role="alert">Please verify your email address</div>
+	{/if}
 </main>
 
 <style>
