@@ -37,6 +37,7 @@
 
 		<button type="submit">Login</button>
 	</form>
+	<a href="/register">Create Account</a>
 	{#if error}
 		<div class="error" role="alert">{error}</div>
 	{/if}

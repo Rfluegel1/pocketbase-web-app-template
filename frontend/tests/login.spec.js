@@ -31,4 +31,16 @@ test.describe('Login Page', () => {
 		// then
 		await expect(page.url()).toBe(`${process.env.BASE_URL}/`);
 	});
+
+	test('link to create user routes to register page', async ({ page }) => {
+		// given
+		await page.goto('/login');
+
+		// when
+		await page.click('a[href="/register"]');
+		await page.waitForTimeout(1000);
+
+		// then
+		await expect(page.url()).toBe(`${process.env.BASE_URL}/register`);
+	});
 });
