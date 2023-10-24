@@ -127,7 +127,7 @@ test.describe('Todo list page', () => {
 		}
 	});
 
-	test.only('should have button that logs user out', async ({ page }) => {
+	test('should have button that logs user out', async ({ page }) => {
 		// given
 		await loginTestUser(page);
 		await page.goto('/');
