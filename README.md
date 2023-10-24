@@ -44,12 +44,12 @@ Check it out deployed live at https://web-app-template.fly.dev/
    1. ```npm run dev``` to view in development mode on port 5173
    1. ```npm run build``` to create static build in frontend/build and copy to backend/pb/public_pb
    1. ```npm run preview``` to view on port 4173
-   1. serve pocketbase in backend/pb/ to view on port 8090
+   1. Serve pocketbase in backend/pb/ to view on port 8090
 
-## Pocketbase configuration
+## Pocketbase configuration (via admin dashboard)
 ### Email
-   1. most easily achieved though SMTP
+   1. Most easily achieved though SMTP
    1. I used https://account-app.brevo.com/
 ### Backups
-   1. most easily achieved using s3
+   1. Most easily achieved using s3
    1. I used https://client.tebi.io/
