@@ -2,22 +2,19 @@ import { expect, test } from '@playwright/test';
 import PocketBase from 'pocketbase';
 import { loginTestUser } from './helpers/loginTestUser.js';
 import { authenticateAsAdmin } from './helpers/authenticateAsAdmin.js';
+import { registerTemporaryUser } from './helpers/registerTemporaryUser.js';
 
 test.describe('Register Page', () => {
 	const pb = new PocketBase(process.env.BASE_URL);
 
 	test('should register a new user and notify user to verify their email', async ({ page }) => {
 		//given
-		let email = `test.user-${Math.random()}@temporary.dev`;
-		await page.goto('/register');
-		await page.fill('input[type="email"]', email);
-		await page.fill('input[id="password"]', 'password12');
-		await page.fill('input[id="passwordConfirm"]', 'password12');
+		let email;
 		const requestPromise = page.waitForRequest('**/request-verification');
 
 		try {
 			// when
-			await page.click('button[type="submit"]');
+			email = await registerTemporaryUser(page);
 			const request = await requestPromise;
 
 			// then
@@ -48,20 +45,13 @@ test.describe('Register Page', () => {
 
 	test('user creation error displays message to client', async ({ page }) => {
 		// given
-		let email = `test.user-${Math.random()}@temporary.dev`;
-		await page.goto('/register');
-		await page.fill('input[type="email"]', email);
-		await page.fill('input[id="password"]', 'password12');
-		await page.fill('input[id="passwordConfirm"]', 'password12');
+		let email;
 		try {
-			await page.click('button[type="submit"]');
+			email = await registerTemporaryUser(page);
 			await page.goto('/register');
 
 			// when
-			await page.fill('input[type="email"]', email);
-			await page.fill('input[id="password"]', 'password12');
-			await page.fill('input[id="passwordConfirm"]', 'password12');
-			await page.click('button[type="submit"]');
+			await registerTemporaryUser(page, email);
 
 			// then
 			await expect(
@@ -84,5 +74,13 @@ test.describe('Register Page', () => {
 
 		// then
 		await expect(page.locator('h1')).toHaveText('Login');
+	});
+
+	test('should display mismatched password and passwordConfirm error', async ({ page }) => {
+		// when
+		await registerTemporaryUser(page, undefined, 'password12', 'password123');
+
+		// then
+		await expect(page.locator('text="Password and Confirm Password do not match"')).toBeVisible();
 	});
 });

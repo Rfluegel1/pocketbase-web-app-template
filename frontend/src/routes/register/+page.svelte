@@ -11,6 +11,10 @@
 
 	async function handleSubmit() {
 		try {
+			if (password !== passwordConfirm) {
+				error = 'Password and Confirm Password do not match';
+				return;
+			}
 			await pb
 				.collection('users')
 				.create({ email: email, password: password, passwordConfirm: passwordConfirm });
