@@ -129,7 +129,7 @@ test.describe('Todo list page', () => {
 
 	test.only('should have button that logs user out', async ({ page }) => {
 		// given
-		await loginTestUser(page)
+		await loginTestUser(page);
 		await page.goto('/');
 
 		// when
@@ -138,5 +138,5 @@ test.describe('Todo list page', () => {
 
 		// then
 		await expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
-	})
+	});
 });
