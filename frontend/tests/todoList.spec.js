@@ -48,33 +48,45 @@ test.describe('Todo list page', () => {
 	});
 
 	test('should allow tasks to be created and deleted', async ({ page }) => {
-		//given
+		// given
 		await loginTestUser(page);
 
-		// when
-		await page.fill('input[id="task"]', 'test task');
-		await page.click('button[id="create"]');
+		try {
+			// when
+			await page.fill('input[id="task"]', 'test task');
+			await page.click('button[id="create"]');
 
-		// then
-		await expect(page.locator('input[id="task"]')).toHaveValue('');
+			// then
+			await expect(page.locator('input[id="task"]')).toHaveValue('');
 
-		// when
-		await page.reload();
+			// when
+			await page.reload();
 
-		// then
-		await expect(page.locator('[data-testid="test task"]').first()).toHaveText('test task');
+			// then
+			await expect(page.locator('[data-testid="test task"]').first()).toHaveText('test task');
 
-		// when
-		await page.click('button[data-testid="delete test task"]');
+			// when
+			await page.click('button[data-testid="delete test task"]');
 
-		// then
-		await expect(page.locator('text="test task"')).not.toBeVisible();
+			// then
+			await expect(page.locator('text="test task"')).not.toBeVisible();
 
-		// when
-		await page.reload();
+			// when
+			await page.reload();
 
-		// then
-		await expect(page.locator('text="test task"')).not.toBeVisible();
+			// then
+			await expect(page.locator('text="test task"')).not.toBeVisible();
+		} finally {
+			// cleanup
+			try {
+				const record = await pb.collection('todos').getFirstListItem('task="test task"');
+				await pb.collection('todos').delete(record.id);
+			} catch (e) {
+				if (e.data.message !== "The requested resource wasn't found.") {
+					throw e;
+				}
+			}
+		}
 	});
 
 	test('empty task cannot be created', async ({ page }) => {
