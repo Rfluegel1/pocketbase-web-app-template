@@ -17,7 +17,6 @@ export async function createTestUser() {
 		user.verified = true;
 
 		await pb.collection('users').update(user.id, user);
-		pb.authStore.clear();
 	} catch (e) {
 		if (e.response.data.email.message !== 'The email is invalid or already in use.') {
 			throw e;
