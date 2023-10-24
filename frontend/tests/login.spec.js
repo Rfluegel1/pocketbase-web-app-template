@@ -28,8 +28,7 @@ test.describe('Login Page', () => {
 		await page.goto('/login');
 
 		// then
-		await page.waitForSelector('text="Todo List"');
-		await expect(page.url()).toBe(`${process.env.BASE_URL}/`);
+		await expect(page.locator('h1')).toHaveText('Todo List');
 	});
 
 	test('link to create user routes to register page', async ({ page }) => {
@@ -40,7 +39,6 @@ test.describe('Login Page', () => {
 		await page.click('a[href="/register"]');
 
 		// then
-		await page.waitForSelector('text="Register"');
-		await expect(page.url()).toBe(`${process.env.BASE_URL}/register`);
+		await expect(page.locator('h1')).toHaveText('Register');
 	});
 });

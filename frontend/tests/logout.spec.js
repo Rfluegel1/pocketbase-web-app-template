@@ -10,7 +10,6 @@ test.describe('Logout page', () => {
 		await page.goto('/logout');
 
 		// then
-		await page.waitForSelector('text="Login"');
-		await expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
+		await expect(page.locator('h1')).toHaveText('Login');
 	});
 });

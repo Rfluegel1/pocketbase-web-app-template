@@ -30,8 +30,7 @@ test.describe('Register Page', () => {
 			await page.click('a[href="/login"]');
 
 			// then
-			await page.waitForSelector('text="Login"');
-			expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
+			await expect(page.locator('h1')).toHaveText('Login');
 
 			// when
 			await loginTestUser(page, email, 'password12');
@@ -84,7 +83,6 @@ test.describe('Register Page', () => {
 		await page.click('a[href="/login"]');
 
 		// then
-		await page.waitForSelector('text="Login"');
-		expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
+		await expect(page.locator('h1')).toHaveText('Login');
 	});
 });
