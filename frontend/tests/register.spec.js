@@ -79,7 +79,7 @@ test.describe('Register Page', () => {
 		}
 	});
 
-	test.only('should have link to login page', async ({page}) => {
+	test('should have link to login page', async ({page}) => {
 		// given
 		await page.goto('/register');
 
