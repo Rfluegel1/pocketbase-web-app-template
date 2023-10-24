@@ -78,4 +78,16 @@ test.describe('Register Page', () => {
 			await pb.collection('users').delete(user.id);
 		}
 	});
+
+	test.only('should have link to login page', async ({page}) => {
+		// given
+		await page.goto('/register');
+
+		// when
+		await page.click('a[href="/login"]');
+		await page.waitForTimeout(1000);
+
+		// then
+		expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
+	})
 });

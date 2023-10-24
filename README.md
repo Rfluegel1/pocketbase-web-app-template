@@ -2,6 +2,8 @@
 # web-app-template
 This is a web application template making use of pocketbase, node, and svelte-kit
 
+Check it out deployed live at https://web-app-template.fly.dev/
+
 ## Backend Setup
 
 
