@@ -126,4 +126,17 @@ test.describe('Todo list page', () => {
 			await pb.collection('users').delete(user.id);
 		}
 	});
+
+	test.only('should have button that logs user out', async ({ page }) => {
+		// given
+		await loginTestUser(page)
+		await page.goto('/');
+
+		// when
+		await page.click('a[href="/logout"]');
+		await page.waitForTimeout(1000);
+
+		// then
+		await expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
+	})
 });
