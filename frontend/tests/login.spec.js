@@ -54,7 +54,7 @@ test.describe('Login Page', () => {
 		});
 
 		// when
-		await loginTestUser(page, 'other@error.com');
+		await loginTestUser(page);
 
 		// then
 		await expect(page.locator('text="Something went wrong. Please try again."')).toBeVisible();
