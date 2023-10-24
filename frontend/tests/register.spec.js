@@ -8,14 +8,12 @@ test.describe('Register Page', () => {
 	const pb = new PocketBase(process.env.BASE_URL);
 
 	test('should register a new user and notify user to verify their email', async ({ page }) => {
-		//given
+		// given
 		let email;
-		const requestPromise = page.waitForRequest('**/request-verification');
-
 		try {
 			// when
 			email = await registerTemporaryUser(page);
-			const request = await requestPromise;
+			const request = await page.waitForRequest('**/request-verification');
 
 			// then
 			await expect(request.url()).toMatch(/\/request-verification$/);
@@ -33,10 +31,9 @@ test.describe('Register Page', () => {
 			await loginTestUser(page, email, 'password12');
 
 			// then
-			await expect(page.url()).toBe(`${process.env.BASE_URL}/`);
+			await expect(page.locator('h1')).toHaveText('Todo List');
 		} finally {
 			// cleanup
-			pb.authStore.clear();
 			await authenticateAsAdmin(pb);
 			const user = await pb.collection('users').getFirstListItem(`email="${email}"`);
 			await pb.collection('users').delete(user.id);
@@ -58,7 +55,6 @@ test.describe('Register Page', () => {
 				page.locator('text="There was an error registering your account"')
 			).toBeVisible();
 		} finally {
-			pb.authStore.clear();
 			await authenticateAsAdmin(pb);
 			const user = await pb.collection('users').getFirstListItem(`email="${email}"`);
 			await pb.collection('users').delete(user.id);

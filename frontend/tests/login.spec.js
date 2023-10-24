@@ -7,7 +7,7 @@ test.describe('Login Page', () => {
 		await loginTestUser(page);
 
 		// then
-		await expect(page.url()).toBe(`${process.env.BASE_URL}/`);
+		await expect(page.locator('h1')).toHaveText('Todo List');
 	});
 
 	test('invalid login displays error message', async ({ page }) => {
@@ -23,6 +23,9 @@ test.describe('Login Page', () => {
 	}) => {
 		// given
 		await loginTestUser(page);
+
+		// expect
+		await expect(page.locator('h1')).toHaveText('Todo List');
 
 		// when
 		await page.goto('/login');

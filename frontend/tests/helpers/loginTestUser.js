@@ -1,13 +1,16 @@
 import { createTestUser } from './createTestUser.js';
 
-export async function loginTestUser(page, email = undefined, password = undefined) {
+export async function loginTestUser(
+	page,
+	email = 'test.user@web-app-template.dev',
+	password = process.env.TEST_USER_PASSWORD
+) {
 	await createTestUser();
 
 	await page.goto('/login');
 
-	await page.fill('input[type="email"]', email || 'test.user@web-app-template.dev');
-	await page.fill('input[type="password"]', password || process.env.TEST_USER_PASSWORD);
+	await page.fill('input[type="email"]', email);
+	await page.fill('input[type="password"]', password);
 
 	await page.click('button[type="submit"]');
-	await page.waitForTimeout(1000);
 }

@@ -18,7 +18,8 @@ const config = {
 	},
 	testDir: 'tests',
 	testMatch: /(.+\.)?(spec)\.[jt]s/,
-	globalSetup: './tests/helpers/globalSetup.js'
+	globalSetup: './tests/helpers/globalSetup.js',
+	timeout: 10000
 };
 
 export default config;

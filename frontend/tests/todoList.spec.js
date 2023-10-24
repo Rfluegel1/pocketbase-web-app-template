@@ -20,8 +20,6 @@ test.describe('Todo list page', () => {
 
 	test('should display only todo records made by test.user', async ({ page }) => {
 		// given
-		await loginTestUser(page);
-
 		try {
 			await authenticateAsAdmin(pb);
 			const testUser = await pb
@@ -32,7 +30,7 @@ test.describe('Todo list page', () => {
 			await pb.collection('todos').create({ task: 'watch grass grow', createdBy: 'someone else' });
 
 			// when
-			await page.goto('/');
+			await loginTestUser(page);
 
 			// then
 			await expect(page.locator('[data-testid="squash bugs"]').first()).toHaveText('squash bugs');
@@ -46,59 +44,48 @@ test.describe('Todo list page', () => {
 			await pb.collection('todos').delete(record.id);
 			record = await pb.collection('todos').getFirstListItem('task="watch grass grow"');
 			await pb.collection('todos').delete(record.id);
-			pb.authStore.clear();
 		}
 	});
 
 	test('should allow tasks to be created and deleted', async ({ page }) => {
 		//given
 		await loginTestUser(page);
-		await page.goto('/');
-		try {
-			// when
-			await page.fill('input[id="task"]', 'test task');
-			await page.click('button[id="create"]');
 
-			// then
-			await expect(page.locator('input[id="task"]')).toHaveValue('');
+		// when
+		await page.fill('input[id="task"]', 'test task');
+		await page.click('button[id="create"]');
 
-			// when
-			await page.reload();
+		// then
+		await expect(page.locator('input[id="task"]')).toHaveValue('');
 
-			// then
-			await expect(page.locator('[data-testid="test task"]').first()).toHaveText('test task');
+		// when
+		await page.reload();
 
-			// when
-			await page.click('button[data-testid="delete test task"]');
+		// then
+		await expect(page.locator('[data-testid="test task"]').first()).toHaveText('test task');
 
-			// then
-			await expect(page.locator('text="test task"')).not.toBeVisible();
+		// when
+		await page.click('button[data-testid="delete test task"]');
 
-			// when
-			await page.reload();
+		// then
+		await expect(page.locator('text="test task"')).not.toBeVisible();
 
-			// then
-			await expect(page.locator('text="test task"')).not.toBeVisible();
-		} finally {
-			// cleanup
-			pb.authStore.clear();
-		}
+		// when
+		await page.reload();
+
+		// then
+		await expect(page.locator('text="test task"')).not.toBeVisible();
 	});
 
 	test('empty task cannot be created', async ({ page }) => {
 		// given
 		await loginTestUser(page);
-		await page.goto('/');
-		try {
-			// when
-			await page.click('button[id="create"]');
 
-			// then
-			await expect(page.locator('div[role="alert"]')).toHaveText('Task is required');
-		} finally {
-			// cleanup
-			pb.authStore.clear();
-		}
+		// when
+		await page.click('button[id="create"]');
+
+		// then
+		await expect(page.locator('div[role="alert"]')).toHaveText('Task is required');
 	});
 
 	test('user without email verification cannot create tasks, and is asked to verify', async ({
@@ -129,7 +116,6 @@ test.describe('Todo list page', () => {
 	test('should have button that logs user out', async ({ page }) => {
 		// given
 		await loginTestUser(page);
-		await page.goto('/');
 
 		// when
 		await page.click('a[href="/logout"]');
