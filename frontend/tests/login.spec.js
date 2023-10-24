@@ -26,9 +26,9 @@ test.describe('Login Page', () => {
 
 		// when
 		await page.goto('/login');
-		await page.waitForTimeout(1000);
 
 		// then
+		await page.waitForSelector('text="Todo List"');
 		await expect(page.url()).toBe(`${process.env.BASE_URL}/`);
 	});
 
@@ -38,9 +38,9 @@ test.describe('Login Page', () => {
 
 		// when
 		await page.click('a[href="/register"]');
-		await page.waitForTimeout(1000);
 
 		// then
+		await page.waitForSelector('text="Register"');
 		await expect(page.url()).toBe(`${process.env.BASE_URL}/register`);
 	});
 });

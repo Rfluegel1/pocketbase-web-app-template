@@ -18,7 +18,6 @@ test.describe('Register Page', () => {
 		try {
 			// when
 			await page.click('button[type="submit"]');
-			await page.waitForTimeout(1000);
 			const request = await requestPromise;
 
 			// then
@@ -29,9 +28,9 @@ test.describe('Register Page', () => {
 
 			// when
 			await page.click('a[href="/login"]');
-			await page.waitForTimeout(1000);
 
 			// then
+			await page.waitForSelector('text="Login"');
 			expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
 
 			// when
@@ -57,7 +56,6 @@ test.describe('Register Page', () => {
 		await page.fill('input[id="passwordConfirm"]', 'password12');
 		try {
 			await page.click('button[type="submit"]');
-			await page.waitForTimeout(1000);
 			await page.goto('/register');
 
 			// when
@@ -65,7 +63,6 @@ test.describe('Register Page', () => {
 			await page.fill('input[id="password"]', 'password12');
 			await page.fill('input[id="passwordConfirm"]', 'password12');
 			await page.click('button[type="submit"]');
-			await page.waitForTimeout(1000);
 
 			// then
 			await expect(
@@ -85,9 +82,9 @@ test.describe('Register Page', () => {
 
 		// when
 		await page.click('a[href="/login"]');
-		await page.waitForTimeout(1000);
 
 		// then
+		await page.waitForSelector('text="Login"');
 		expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
 	});
 });

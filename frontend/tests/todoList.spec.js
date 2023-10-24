@@ -15,7 +15,8 @@ test.describe('Todo list page', () => {
 		await page.goto('/');
 
 		// then
-		await expect(page.locator('h1')).toHaveText('Login');
+		await page.waitForSelector('text="Login"');
+		await expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
 	});
 
 	test('should display only todo records made by test.user', async ({ page }) => {
@@ -108,13 +109,13 @@ test.describe('Todo list page', () => {
 		let email;
 		try {
 			email = await registerTemporaryUser(page);
-			await page.waitForTimeout(1000);
+			await page.waitForSelector('text="Please verify your email address, and then login "');
 
 			// when
 			await loginTestUser(page, email, 'password12');
-			await page.waitForTimeout(1000);
 
 			// then
+			await page.waitForSelector('text="Todo List"');
 			await expect(page.url()).toBe(`${process.env.BASE_URL}/`);
 			await expect(page.locator('div[role="alert"]')).toHaveText(
 				'Please verify your email address'
@@ -134,9 +135,9 @@ test.describe('Todo list page', () => {
 
 		// when
 		await page.click('a[href="/logout"]');
-		await page.waitForTimeout(1000);
 
 		// then
+		await page.waitForSelector('text="Login"');
 		await expect(page.url()).toBe(`${process.env.BASE_URL}/login`);
 	});
 });

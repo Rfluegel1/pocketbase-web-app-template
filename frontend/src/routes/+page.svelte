@@ -44,6 +44,7 @@
 </script>
 
 <main>
+	<h1>Todo List</h1>
 	{#if isEmailVerified}
 		<div class="todo-list">
 			<ol>
