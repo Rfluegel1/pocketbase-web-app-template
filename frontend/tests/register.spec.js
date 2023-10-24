@@ -79,4 +79,12 @@ test.describe('Register Page', () => {
 		// then
 		await expect(page.locator('text="Password and Confirm Password do not match"')).toBeVisible();
 	});
+
+	test('should display password length error', async ({ page }) => {
+		// when
+		await registerTemporaryUser(page, undefined, '1234567', '1234567');
+
+		// then
+		await expect(page.locator('text="Password length must be >=8 characters"')).toBeVisible();
+	});
 });

@@ -10,11 +10,15 @@
 	export let pb = new PocketBase(process.env.BASE_URL);
 
 	async function handleSubmit() {
+		if (password !== passwordConfirm) {
+			error = 'Password and Confirm Password do not match';
+			return;
+		}
+		if (password.length < 8) {
+			error = 'Password length must be >=8 characters';
+			return;
+		}
 		try {
-			if (password !== passwordConfirm) {
-				error = 'Password and Confirm Password do not match';
-				return;
-			}
 			await pb
 				.collection('users')
 				.create({ email: email, password: password, passwordConfirm: passwordConfirm });
