@@ -44,4 +44,19 @@ test.describe('Login Page', () => {
 		// then
 		await expect(page.locator('h1')).toHaveText('Register');
 	});
+
+	test('should display other error message', async ({ page, context }) => {
+		// given
+		await context.route('**/auth-with-password', (route) => {
+			route.fulfill({
+				status: 500
+			});
+		});
+
+		// when
+		await loginTestUser(page, 'other@error.com');
+
+		// then
+		await expect(page.locator('text="Something went wrong. Please try again."')).toBeVisible();
+	});
 });

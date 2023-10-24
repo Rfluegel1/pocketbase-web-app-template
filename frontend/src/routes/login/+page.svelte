@@ -20,7 +20,11 @@
 			await pb.collection('users').authWithPassword(email, password);
 			await goto('/');
 		} catch (e) {
-			error = 'Invalid email or password';
+			if (e.message === 'Failed to authenticate.') {
+				error = 'Invalid email or password';
+			} else {
+				error = 'Something went wrong. Please try again.';
+			}
 			throw e;
 		}
 	}
