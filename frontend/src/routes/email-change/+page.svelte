@@ -9,11 +9,12 @@
 
 	async function handleChangeEmail() {
 		try {
+			TEMP_ERROR_MESSAGE = email
 			await pb.collection('users').requestEmailChange(email);
 			message = `Request sent to ${email} with further instructions`;
 			email = '';
 		} catch (error) {
-			TEMP_ERROR_MESSAGE = error
+			TEMP_ERROR_MESSAGE += error
 			message = 'Something went wrong. Please try again.';
 		}
 	}
