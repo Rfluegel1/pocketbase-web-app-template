@@ -15,7 +15,11 @@ test.describe('Login Page', () => {
 		await loginTestUser(page, 'invalid@invalid.invalid', 'invalid');
 
 		// then
-		await expect(page.locator('text="Invalid email or password"')).toBeVisible();
+		await expect(
+			page.locator(
+				'text="Invalid email or password. Note that the text before the @ of emails is case sensitive."'
+			)
+		).toBeVisible();
 	});
 
 	test('logged in user should be redirected to todoList when visiting login page', async ({

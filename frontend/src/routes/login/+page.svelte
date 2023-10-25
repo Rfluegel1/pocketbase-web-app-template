@@ -21,7 +21,7 @@
 			await goto('/');
 		} catch (e) {
 			if (e.message === 'Failed to authenticate.') {
-				error = 'Invalid email or password';
+				error = 'Invalid email or password. Note that the text before the @ of emails is case sensitive.';
 			} else {
 				error = 'Something went wrong. Please try again.';
 			}
