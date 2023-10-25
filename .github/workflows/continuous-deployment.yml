@@ -47,7 +47,7 @@ jobs:
 
       - name: Run frontend tests (Development)
         working-directory: ./frontend
-        run: npm run test:github
+        run: npm run test:github -- --workers=5
 
       - name: Install flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
@@ -65,7 +65,7 @@ jobs:
 
       - name: Run e2e tests (staging)
         working-directory: ./frontend
-        run: npm run test:staging
+        run: npm run test:staging -- --workers=5
 
       - name: Upload Test Results
         if: failure()
