@@ -19,7 +19,9 @@ test.describe('Password reset page', () => {
 		const request = await requestPromise;
 
 		// then
-		await page.waitForSelector(`text="If an account exists for ${email}, an email will be sent with further instructions"`);
+		await page.waitForSelector(
+			`text="If an account exists for ${email}, an email will be sent with further instructions"`
+		);
 		await expect(request.url()).toMatch(/\/request-password-reset$/);
 		await expect(page.locator('input[type=email]')).toHaveValue('');
 
@@ -28,5 +30,22 @@ test.describe('Password reset page', () => {
 
 		// then
 		await expect(page.locator('h1')).toHaveText('Login');
+	});
+
+	test('should display error message when request fails', async ({ page, context }) => {
+		// given
+		await context.route('**/request-password-reset', (route) => {
+			route.fulfill({
+				status: 500
+			});
+		});
+		await page.goto('/password-reset');
+		await page.fill('input[type="email"]', 'test.user@temporary.com');
+
+		// when
+		await page.click('button[type="submit"]');
+
+		// then
+		await page.waitForSelector(`text="Something went wrong. Please try again."`);
 	});
 });

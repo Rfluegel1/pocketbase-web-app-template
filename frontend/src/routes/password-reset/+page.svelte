@@ -7,18 +7,18 @@
 	let message = '';
 
 	async function handleSubmit() {
-		// try {
-		await pb.collection('users').requestPasswordReset(email);
-		message = `If an account exists for ${email}, an email will be sent with further instructions`;
-		email = '';
-		// if (response.ok) {
-		//     message = 'Password reset email sent';
-		// } else {
-		//     message = 'Something went wrong';
-		// }
-		// } catch (error) {
-		//     message = 'Failed to send reset email';
-		// }
+		try {
+			await pb.collection('users').requestPasswordReset(email);
+			message = `If an account exists for ${email}, an email will be sent with further instructions`;
+			email = '';
+			// if (response.ok) {
+			//     message = 'Password reset email sent';
+			// } else {
+			//     message = 'Something went wrong';
+			// }
+		} catch (error) {
+			message = 'Something went wrong. Please try again.';
+		}
 	}
 </script>
 
