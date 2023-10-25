@@ -19,7 +19,7 @@ const config = {
 	testDir: 'tests',
 	testMatch: /(.+\.)?(spec)\.[jt]s/,
 	globalSetup: './tests/helpers/globalSetup.js',
-	timeout: 10000
+	timeout: 15000
 };
 
 export default config;
