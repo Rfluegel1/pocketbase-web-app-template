@@ -146,4 +146,15 @@ test.describe('Todo list page', () => {
 		// then
 		await expect(page.locator('h1')).toHaveText('Change Email');
 	});
+
+	test('should have link to password reset', async ({ page }) => {
+		// given
+		await loginTestUser(page);
+
+		// when
+		await page.click('a[href="/password-reset"]');
+
+		// then
+		await expect(page.locator('h1')).toHaveText('Password Reset');
+	});
 });
