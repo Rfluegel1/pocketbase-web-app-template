@@ -6,7 +6,8 @@ test.describe('Password reset page', () => {
 	}) => {
 		// given
 		await page.goto('/password-reset');
-		await page.fill('input[type="email"]', 'test.user@temporary.com');
+		let email = 'test.user@temporary.com';
+		await page.fill('input[type="email"]', email);
 
 		// Start listening for the request before clicking the submit button
 		const requestPromise = page.waitForRequest('**/request-password-reset');
@@ -18,7 +19,7 @@ test.describe('Password reset page', () => {
 		const request = await requestPromise;
 
 		// then
-		await page.waitForSelector('text="Password reset email sent"');
+		await page.waitForSelector(`text="If an account exists for ${email}, an email will be sent with further instructions"`);
 		await expect(request.url()).toMatch(/\/request-password-reset$/);
 
 		// when

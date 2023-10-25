@@ -9,7 +9,7 @@
 	async function handleSubmit() {
 		// try {
 		await pb.collection('users').requestPasswordReset(email);
-		message = 'Password reset email sent';
+		message = `If an account exists for ${email}, an email will be sent with further instructions`;
 		// if (response.ok) {
 		//     message = 'Password reset email sent';
 		// } else {
