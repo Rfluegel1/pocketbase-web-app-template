@@ -59,4 +59,15 @@ test.describe('Login Page', () => {
 		// then
 		await expect(page.locator('text="Something went wrong. Please try again."')).toBeVisible();
 	});
+
+	test('should link to password reset page', async ({ page }) => {
+		// given
+		await page.goto('/login');
+
+		// when
+		await page.click('a[href="/password-reset"]');
+
+		// then
+		await expect(page.locator('h1')).toHaveText('Password Reset');
+	})
 });
