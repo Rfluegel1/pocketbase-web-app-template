@@ -5,16 +5,13 @@
 
 	let email = '';
 	let message = '';
-	let TEMP_ERROR_MESSAGE = '';
 
 	async function handleChangeEmail() {
 		try {
-			TEMP_ERROR_MESSAGE = email
 			await pb.collection('users').requestEmailChange(email);
 			message = `Request sent to ${email} with further instructions`;
 			email = '';
 		} catch (error) {
-			TEMP_ERROR_MESSAGE += error
 			message = 'Something went wrong. Please try again.';
 		}
 	}
@@ -29,9 +26,6 @@
 	</form>
 	{#if message}
 		<p>{message}</p>
-	{/if}
-	{#if TEMP_ERROR_MESSAGE}
-		<p>{TEMP_ERROR_MESSAGE}</p>
 	{/if}
 
 	<a href="/">Back to Todo List</a>

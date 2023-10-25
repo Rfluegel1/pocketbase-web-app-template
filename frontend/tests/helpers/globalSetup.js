@@ -1,8 +1,8 @@
 import PocketBase from 'pocketbase';
-import {authenticateAsAdmin} from "./authenticateAsAdmin.js";
+import { authenticateAsAdmin } from './authenticateAsAdmin.js';
 
 export default async () => {
-		const pb = new PocketBase(process.env.BASE_URL);
+	const pb = new PocketBase(process.env.BASE_URL);
 	const createFirstAdmin = async () => {
 		await pb.admins.create({
 			email: process.env.PB_ADMIN_EMAIL,
@@ -31,9 +31,9 @@ export default async () => {
 				throw e;
 			}
 		}
-	}
+	};
 
-	if (process.env.CREATE_FIRST_ADMIN) {
+	if (process.env.IS_GITHUB) {
 		await createFirstAdmin();
 	}
 
