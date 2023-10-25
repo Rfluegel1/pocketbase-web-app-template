@@ -10,6 +10,7 @@
 		// try {
 		await pb.collection('users').requestPasswordReset(email);
 		message = `If an account exists for ${email}, an email will be sent with further instructions`;
+		email = '';
 		// if (response.ok) {
 		//     message = 'Password reset email sent';
 		// } else {

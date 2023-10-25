@@ -21,6 +21,7 @@ test.describe('Password reset page', () => {
 		// then
 		await page.waitForSelector(`text="If an account exists for ${email}, an email will be sent with further instructions"`);
 		await expect(request.url()).toMatch(/\/request-password-reset$/);
+		await expect(page.locator('input[type=email]')).toHaveValue('');
 
 		// when
 		await page.click('a[href="/login"]');
