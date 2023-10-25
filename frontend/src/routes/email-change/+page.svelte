@@ -13,7 +13,7 @@
 			message = `Request sent to ${email} with further instructions`;
 			email = '';
 		} catch (error) {
-			TEMP_ERROR_MESSAGE = error.code +' '+ error.message;
+			TEMP_ERROR_MESSAGE = error
 			message = 'Something went wrong. Please try again.';
 		}
 	}
