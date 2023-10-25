@@ -69,5 +69,5 @@ test.describe('Login Page', () => {
 
 		// then
 		await expect(page.locator('h1')).toHaveText('Password Reset');
-	})
+	});
 });
