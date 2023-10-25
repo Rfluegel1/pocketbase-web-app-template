@@ -10,6 +10,7 @@
 	export let pb = new PocketBase(process.env.BASE_URL);
 
 	async function handleSubmit() {
+		email = email.toLowerCase();
 		if (password !== passwordConfirm) {
 			error = 'Password and Confirm Password do not match';
 			return;
