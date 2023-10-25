@@ -10,7 +10,7 @@ test.describe('Email change page', () => {
 		await expect(page.locator('h1')).toHaveText('Login');
 	});
 
-	test('should call to email change for logged in user', async ({ page }) => {
+	test('should call to email change for logged in user', async ({ page, context }) => {
 		// given
 		// temporary fix for GitHub actions to be happy
 		await context.route('**/request-email-change', (route) => {
