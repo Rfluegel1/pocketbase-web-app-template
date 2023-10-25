@@ -74,4 +74,12 @@ test.describe('Login Page', () => {
 		// then
 		await expect(page.locator('h1')).toHaveText('Password Reset');
 	});
+
+	test('login email is case insensitive', async ({ page }) => {
+		// given
+		await loginTestUser(page, 'TEST.USER@WEB-APP-TEMPLATE.DEV');
+
+		// expect
+		await expect(page.locator('h1')).toHaveText('Todo List');
+	});
 });
