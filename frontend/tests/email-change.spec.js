@@ -12,6 +12,12 @@ test.describe('Email change page', () => {
 
 	test('should call to email change for logged in user', async ({ page }) => {
 		// given
+		// temporary fix for GitHub actions to be happy
+		await context.route('**/request-email-change', (route) => {
+			route.fulfill({
+				status: 204
+			});
+		});
 		const email = 'new.email@web-app-template.dev';
 		const requestPromise = page.waitForRequest('**/request-email-change');
 		await loginTestUser(page);
