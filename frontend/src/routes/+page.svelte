@@ -63,7 +63,12 @@
 				<div class="error" role="alert">{error}</div>
 			{/if}
 		</form>
-		<a href="/logout">Logout</a>
+		<div>
+			<a href="/logout">Logout</a>
+		</div>
+		<div>
+			<a href="/email-change">Change Email</a>
+		</div>
 	{:else}
 		<div class="error" role="alert">Please verify your email address</div>
 	{/if}

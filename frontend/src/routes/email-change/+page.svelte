@@ -27,6 +27,5 @@
 	{#if message}
 		<p>{message}</p>
 	{/if}
-
 	<a href="/">Back to Todo List</a>
 </main>

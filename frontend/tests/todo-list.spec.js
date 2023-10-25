@@ -125,7 +125,7 @@ test.describe('Todo list page', () => {
 		}
 	});
 
-	test('should have button that logs user out', async ({ page }) => {
+	test('should have link that logs user out', async ({ page }) => {
 		// given
 		await loginTestUser(page);
 
@@ -134,5 +134,16 @@ test.describe('Todo list page', () => {
 
 		// then
 		await expect(page.locator('h1')).toHaveText('Login');
+	});
+
+	test('should have link to email change', async ({ page }) => {
+		// given
+		await loginTestUser(page);
+
+		// when
+		await page.click('a[href="/email-change"]');
+
+		// then
+		await expect(page.locator('h1')).toHaveText('Change Email');
 	});
 });
