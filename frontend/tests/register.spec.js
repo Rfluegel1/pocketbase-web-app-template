@@ -10,10 +10,12 @@ test.describe('Register Page', () => {
 	test('should register a new user and notify user to verify their email', async ({ page }) => {
 		// given
 		let email;
+		const requestPromise = page.waitForRequest('**/request-verification');
+
 		try {
 			// when
 			email = await registerTemporaryUser(page);
-			const request = await page.waitForRequest('**/request-verification');
+			const request = await requestPromise;
 
 			// then
 			await expect(request.url()).toMatch(/\/request-verification$/);
