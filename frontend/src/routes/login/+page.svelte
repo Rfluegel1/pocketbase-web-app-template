@@ -17,7 +17,7 @@
 
 	async function handleSubmit() {
 		try {
-			await pb.collection('users').authWithPassword(email.toLowerCase(), password);
+			await pb.collection('users').authWithPassword(email, password);
 			await goto('/');
 		} catch (e) {
 			if (e.message === 'Failed to authenticate.') {

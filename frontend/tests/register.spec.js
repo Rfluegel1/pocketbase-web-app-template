@@ -89,22 +89,4 @@ test.describe('Register Page', () => {
 		// then
 		await expect(page.locator('text="Password length must be >=8 characters"')).toBeVisible();
 	});
-
-	test('should register email as all lower case', async ({ page }) => {
-		// given
-		const requestBodyPromise = new Promise((resolve) => {
-			page.route('**/users/records', async (route) => {
-				const request = route.request();
-				resolve(JSON.parse(request.postData()));
-				await route.continue();
-			});
-		});
-
-		// when
-		await registerTemporaryUser(page, 'TEST.USER@TEMPORARY.DEV');
-
-		// then
-		const requestBody = await requestBodyPromise;
-		expect(requestBody.email).toBe('test.user@temporary.dev');
-	});
 });
