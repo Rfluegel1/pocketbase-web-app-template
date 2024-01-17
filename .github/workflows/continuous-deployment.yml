@@ -29,15 +29,6 @@ jobs:
         with:
           node-version: 18.16.0
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: '1.21.3'
-
-      - name: Create go executable
-        working-directory: ./backend/pb
-        run: CGO_ENABLED=0 go build
-
       - name: Install dependencies
         working-directory: ./backend
         run: npm install
@@ -57,6 +48,15 @@ jobs:
       - name: Run frontend tests (Development)
         working-directory: ./frontend
         run: npm run test:github -- --workers=5
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.21.3'
+
+      - name: Create go executable
+        working-directory: ./backend/pb
+        run: CGO_ENABLED=0 go build
 
       - name: Install flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
