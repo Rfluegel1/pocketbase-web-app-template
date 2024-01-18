@@ -37,4 +37,4 @@ COPY --from=frontend-build /app/frontend/build ./pb/pb_public
 EXPOSE 8090
 
 # Specify the command to run when the container starts
-CMD [ "./pb/myapp", "serve", "--http", "0.0.0.0:8090" ]
+CMD [ "./pb/linux_amd64_pocketbase", "serve", "--http", "0.0.0.0:8090" ]
