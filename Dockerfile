@@ -15,7 +15,7 @@ COPY frontend .
 # Build the frontend
 RUN npm run build
 
-# Build backend
+# Build backend (Node.js)
 FROM node:18.16.0-slim AS backend-build
 
 WORKDIR /app/backend
@@ -29,34 +29,34 @@ COPY backend/package*.json ./
 # Install backend dependencies
 RUN npm install --only=production
 
-# Copy the rest of the backend code and the built frontend
+# Copy the rest of the backend code
 COPY backend .
+
+# Copy the built frontend
 COPY --from=frontend-build /app/frontend/build ./pb/pb_public
 
-# Set up Go environment
-# Use a Docker multi-stage build to keep the final image size small
-WORKDIR /app/backend/pb
+# Set up Go build environment
+FROM golang:1.21.3 AS go-build
 
-# Copy the backend Go code along with go.mod and go.sum
-COPY --from=backend-build /app/backend/pb /app/backend/pb
+WORKDIR /app
 
-# Copy go.mod and go.sum
-COPY backend/pb/go.mod backend/pb/go.sum ./
+# Copy the Go code along with go.mod and go.sum
+COPY backend/pb/go.mod backend/pb/go.sum /app/
+COPY backend/pb /app/
 
 # Disable CGO and build the Go application
-RUN CGO_ENABLED=0 go build -o myapp .
+RUN CGO_ENABLED=0 go build -o myapp /app
 
 # Final stage: Create the final Docker image
 FROM node:18.16.0-slim
 
 WORKDIR /app/backend
 
-# Copy the built Go binary from the previous stage
-COPY --from=go-build /app/backend/pb/myapp ./pb/myapp
+# Copy the built Go binary from the Go build stage
+COPY --from=go-build /app/myapp ./pb/myapp
 
-# Copy the rest of the backend code and the built frontend
+# Copy the Node.js backend and the built frontend
 COPY --from=backend-build /app/backend /app/backend
-COPY --from=frontend-build /app/frontend/build ./pb/pb_public
 
 # Expose the port the app runs on
 EXPOSE 8090
