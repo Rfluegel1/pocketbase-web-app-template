@@ -35,15 +35,16 @@ COPY --from=frontend-build /app/frontend/build ./pb/pb_public
 
 # Set up Go environment
 # Use a Docker multi-stage build to keep the final image size small
-FROM golang:1.21.3 AS go-build
+WORKDIR /app/backend/pb
 
-WORKDIR /app/backend
+# Copy the backend Go code along with go.mod and go.sum
+COPY --from=backend-build /app/backend/pb /app/backend/pb
 
-# Copy the backend Go code
-COPY --from=backend-build /app/backend /app/backend
+# Copy go.mod and go.sum
+COPY backend/pb/go.mod backend/pb/go.sum ./
 
 # Disable CGO and build the Go application
-RUN CGO_ENABLED=0 go build -o ./pb/myapp ./pb
+RUN CGO_ENABLED=0 go build -o myapp .
 
 # Final stage: Create the final Docker image
 FROM node:18.16.0-slim
