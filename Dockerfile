@@ -31,7 +31,6 @@ RUN npm install --only=production
 
 # Copy the rest of the backend code and the built frontend
 COPY backend .
-COPY --from=frontend-build /app/frontend/build ./pb/pb_public
 
 # Expose the port the app runs on
 EXPOSE 8090
