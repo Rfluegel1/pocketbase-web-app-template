@@ -13,7 +13,7 @@ export default async () => {
     const startBackend = () => new Promise((resolve) => {
         const myAppPath = path.join(__dirname, '../', 'pb', 'myapp');
         try {
-        fs.unlinkSync(myAppPath)
+            fs.unlinkSync(myAppPath)
         } catch (err) {
             if (err.code !== 'ENOENT') {
                 throw err
