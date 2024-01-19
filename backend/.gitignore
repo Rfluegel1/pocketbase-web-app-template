@@ -2,3 +2,4 @@ node_modules
 pb/pb_data
 pb/pb_public
 pb/macos_arm64_pocketbase
+pb/myapp

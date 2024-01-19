@@ -4,6 +4,7 @@
   "description": "This is a web application template making use of pocketbase, node, and react",
   "main": "index.js",
   "scripts": {
+    "build": "cd pb && CGO_ENABLED=0 go build",
     "test": "jest",
     "test:github": "NODE_ENV=development POCKETBASE_EXE=linux_amd64_pocketbase jest --runInBand",
     "test:staging": "NODE_ENV=staging jest blackbox"
