@@ -1,5 +1,5 @@
 const isStaging = process.env.NODE_ENV === 'staging';
-const POCKETBASE_EXE = process.env.POCKETBASE_EXE || 'macos_arm64_pocketbase';
+const POCKETBASE_EXE = process.env.POCKETBASE_EXE || 'myapp';
 import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
