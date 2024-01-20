@@ -17,20 +17,21 @@ Check it out deployed live at https://web-app-template.fly.dev/
 
 ## Backend Setup
 1. ### Install dependencies
+   1. ```brew install go```
+   1. ```brew install node```
    1. ```cd backend```
    1. ```npm install```
 
 1. ### Run pocketbase
-   1. Download appropriate pocketbase binary from https://pocketbase.io/docs
-   1. Name the executable appropriately, place in backend/pb, then add to .gitignore and .dockerignore
-   1. If the name of your executable is not "macos_arm64_pocketbase", then you will need to edit backend/tests/globalSetup.js
-   1. ```./pb/<exe_name>_pocketbase serve```
+   1. You may create the exe manually with ```CGO_ENABLED=0 go build``` while within backend/pb directory
+   1. If the name of your executable is not "myapp", then you will need to edit backend/tests/globalSetup.js
+   1. ```./pb/<exe_name> serve```
    1. Create your admin account at the admin UI (http://127.0.0.1:8090/_/ by default)
    1. Create a new user record for which Email=test.user@web-app-template.dev and Verified=true 
    1. Be sure to stop pocketbase before running tests
 
 1. ### Run tests
-   1. ```npm run test```
+   1. ```npm run test``` (will rebuild exe every time)
 
 ## Frontend Setup
 1. ### Install dependencies
@@ -38,7 +39,7 @@ Check it out deployed live at https://web-app-template.fly.dev/
    1. ```npm install```
 
 1. ### Run tests
-   1. ```npm run test``` (this also creates static build)
+   1. ```npm run test``` (this also creates static build, makes use of existing backend exe)
 
 1. ### View frontend
    1. ```npm run dev``` to view in development mode on port 5173

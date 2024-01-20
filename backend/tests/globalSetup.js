@@ -6,7 +6,6 @@ if (process.env.NODE_ENV === 'test') {
     process.env.NODE_ENV = 'development'
 }
 const env = process.env.NODE_ENV || 'development'
-const POCKETBASE_EXE = process.env.POCKETBASE_EXE || 'myapp'
 require('dotenv').config({path: `.env.${env}`})
 
 export default async () => {
@@ -27,9 +26,9 @@ export default async () => {
         })
         while (!fs.existsSync(myAppPath)) {
         }
-        const server = spawn(`./pb/${POCKETBASE_EXE}`, ['serve']);
+        const server = spawn(`./pb/myapp`, ['serve']);
         let pid = server.pid?.toString() ? server.pid?.toString() : 'pid undefined'
-        console.log('\ncreated macos_arm64_pocketbase server with pid:', pid)
+        console.log('\ncreated pocketbase server with pid:', pid)
         fs.writeFileSync(path.join(__dirname, 'server.pid'), pid)
         server.stdout.on('data', (data) => {
             const output = data.toString()
